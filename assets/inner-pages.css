@@ -1,0 +1,200 @@
+/* Inner service pages — same visual language as the premium V2 home */
+
+/* Psicoteràpia and Teràpia a la natura use a different Elementor structure. */
+body.premium-site .elementor-element[data-id="1326b4b"],
+body.premium-site .elementor-element[data-id="7e3c9a4"]{
+  width:calc(100% - 48px)!important;
+  max-width:1240px!important;
+  min-height:420px!important;
+  margin:28px auto 44px!important;
+  padding:0!important;
+  border-radius:30px!important;
+  overflow:hidden!important;
+  background-position:center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+  filter:none!important;
+  box-shadow:0 16px 44px rgba(26,45,38,.07)!important;
+}
+body.premium-site .elementor-element[data-id="1326b4b"]>.elementor-background-overlay,
+body.premium-site .elementor-element[data-id="7e3c9a4"]>.elementor-background-overlay{
+  display:none!important;
+  opacity:0!important;
+  background:none!important;
+  filter:none!important;
+}
+body.premium-site .elementor-element[data-id="1326b4b"]>.elementor-container,
+body.premium-site .elementor-element[data-id="7e3c9a4"]>.elementor-container{
+  min-height:420px!important;
+  max-width:1120px!important;
+  padding:48px 42px!important;
+  margin:auto!important;
+  align-items:center!important;
+}
+body.premium-site .elementor-element[data-id="1326b4b"] .elementor-widget-wrap,
+body.premium-site .elementor-element[data-id="7e3c9a4"] .elementor-widget-wrap{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+body.premium-site .elementor-element[data-id="1326b4b"] .elementor-heading-title,
+body.premium-site .elementor-element[data-id="7e3c9a4"] .elementor-heading-title,
+body.premium-site .elementor-element[data-id="1326b4b"] p,
+body.premium-site .elementor-element[data-id="7e3c9a4"] p{
+  color:#fff!important;
+  text-shadow:0 2px 18px rgba(0,0,0,.42)!important;
+}
+body.premium-site .elementor-element[data-id="0d2d40c"],
+body.premium-site .elementor-element[data-id="6dd604c"]{
+  margin:0!important;
+  text-align:center!important;
+}
+body.premium-site .elementor-element[data-id="0d2d40c"] .elementor-heading-title,
+body.premium-site .elementor-element[data-id="6dd604c"] .elementor-heading-title{
+  font-size:clamp(54px,6vw,78px)!important;
+  line-height:1!important;
+  letter-spacing:-.035em!important;
+  color:#fff!important;
+}
+body.premium-site .elementor-element[data-id="7674517"] .elementor-heading-title,
+body.premium-site .elementor-element[data-id="fc877aa"] .elementor-heading-title{
+  font-size:18px!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  color:#fff!important;
+}
+body.premium-site .elementor-element[data-id="0902cae"],
+body.premium-site .elementor-element[data-id="810c0c1"]{
+  margin:8px 0 0!important;
+  color:#fff!important;
+  font-size:15px!important;
+  line-height:1.4!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.42)!important;
+}
+body.premium-site .elementor-element[data-id="c159479"],
+body.premium-site .elementor-element[data-id="223f8dd"]{margin:18px 0 0!important}
+body.premium-site .elementor-element[data-id="c159479"] .elementor-button,
+body.premium-site .elementor-element[data-id="223f8dd"] .elementor-button{
+  background:#fff!important;
+  color:var(--ink)!important;
+  border:1px solid #fff!important;
+  border-radius:999px!important;
+  padding:14px 26px!important;
+  font-size:13px!important;
+  text-shadow:none!important;
+}
+
+/* More contained typography immediately below service heroes. */
+body.premium-site .elementor-element[data-id="8f1f1b8"] .elementor-heading-title,
+body.premium-site .elementor-element[data-id="adf914b"] .elementor-heading-title{
+  font-size:clamp(34px,3.8vw,48px)!important;
+  line-height:1.08!important;
+  max-width:850px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+body.premium-site .elementor-element[data-id="d5bb7dd"] .elementor-heading-title{
+  font-size:clamp(26px,3vw,38px)!important;
+  line-height:1.22!important;
+  max-width:970px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Psicoteràpia cards: rounded photography without oversized portraits. */
+body.premium-site .elementor-page-2034 .elementor-widget-image img,
+body.premium-site .elementor-page-2047 .elementor-widget-image img{
+  border-radius:22px!important;
+  filter:none!important;
+  box-shadow:none!important;
+}
+body.premium-site .elementor-element[data-id="559f9e3"] img,
+body.premium-site .elementor-element[data-id="b794155"] img,
+body.premium-site .elementor-element[data-id="04d75c5"] img,
+body.premium-site .elementor-element[data-id="c57b0e5"] img,
+body.premium-site .elementor-element[data-id="024b2bf"] img,
+body.premium-site .elementor-element[data-id="6c5571d"] img{
+  width:100%!important;
+  height:330px!important;
+  max-height:330px!important;
+  object-fit:cover!important;
+  border-radius:22px!important;
+}
+
+/* Larger nature-session photography: still substantial, never enormous. */
+body.premium-site .elementor-element[data-id="be5ade5"] img,
+body.premium-site .elementor-element[data-id="950e469"] img{
+  width:100%!important;
+  height:420px!important;
+  max-height:420px!important;
+  object-fit:cover!important;
+  border-radius:22px!important;
+}
+
+/* Nature CTA background is also treated like an image component. */
+body.premium-site .elementor-element[data-id="a16a3ad"]{
+  width:calc(100% - 48px)!important;
+  max-width:1180px!important;
+  min-height:400px!important;
+  margin:36px auto!important;
+  border-radius:30px!important;
+  overflow:hidden!important;
+  filter:none!important;
+  box-shadow:0 14px 42px rgba(26,45,38,.07)!important;
+}
+body.premium-site .elementor-element[data-id="a16a3ad"]>.elementor-background-overlay{display:none!important;opacity:0!important}
+body.premium-site .elementor-element[data-id="a16a3ad"] .elementor-heading-title{
+  color:#fff!important;
+  text-shadow:0 2px 16px rgba(0,0,0,.42)!important;
+}
+body.premium-site .elementor-element[data-id="a16a3ad"] .elementor-button{
+  background:#fff!important;
+  color:var(--ink)!important;
+  border-color:#fff!important;
+}
+
+/* Generic image guardrail for content pages. Exclude brand/institutional images. */
+body.premium-site article .elementor-widget-image:not([data-id="3935f1d"]):not([data-id="b906cc5"]):not([data-id="5495d3c"]) img:not(.custom-logo){
+  border-radius:22px!important;
+  filter:none!important;
+}
+
+@media(max-width:921px){
+  body.premium-site .elementor-element[data-id="1326b4b"],
+  body.premium-site .elementor-element[data-id="7e3c9a4"]{
+    width:calc(100% - 24px)!important;
+    min-height:390px!important;
+    margin:14px auto 28px!important;
+    border-radius:24px!important;
+    background-position:center!important;
+  }
+  body.premium-site .elementor-element[data-id="1326b4b"]>.elementor-container,
+  body.premium-site .elementor-element[data-id="7e3c9a4"]>.elementor-container{
+    min-height:390px!important;
+    padding:34px 22px!important;
+    align-items:flex-end!important;
+  }
+  body.premium-site .elementor-element[data-id="0d2d40c"] .elementor-heading-title,
+  body.premium-site .elementor-element[data-id="6dd604c"] .elementor-heading-title{
+    font-size:clamp(44px,12vw,58px)!important;
+  }
+  body.premium-site .elementor-element[data-id="559f9e3"] img,
+  body.premium-site .elementor-element[data-id="b794155"] img,
+  body.premium-site .elementor-element[data-id="04d75c5"] img,
+  body.premium-site .elementor-element[data-id="c57b0e5"] img,
+  body.premium-site .elementor-element[data-id="024b2bf"] img,
+  body.premium-site .elementor-element[data-id="6c5571d"] img{
+    height:300px!important;
+    max-height:300px!important;
+  }
+  body.premium-site .elementor-element[data-id="be5ade5"] img,
+  body.premium-site .elementor-element[data-id="950e469"] img{
+    height:360px!important;
+    max-height:360px!important;
+  }
+  body.premium-site .elementor-element[data-id="a16a3ad"]{
+    width:calc(100% - 24px)!important;
+    min-height:360px!important;
+    border-radius:24px!important;
+  }
+}
