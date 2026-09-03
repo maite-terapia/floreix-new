@@ -6,6 +6,7 @@ on:
       - '.github/workflows/verify-premium.yml'
       - 'assets/premium.css'
       - 'assets/premium-fixes.css'
+      - 'assets/inner-pages.css'
       - 'assets/navigation.css'
       - 'assets/premium.js'
       - 'index.html'
@@ -15,6 +16,11 @@ on:
       - 'psicoterapia/index.html'
       - 'terapia-a-la-natura/index.html'
       - 'es/index.html'
+      - 'es/contacto/index.html'
+      - 'es/metodologia/index.html'
+      - 'es/psicoterapia/index.html'
+      - 'es/sobre-nosotros/index.html'
+      - 'es/terapia-en-la-naturaleza/index.html'
   workflow_dispatch:
 
 permissions:
@@ -57,10 +63,11 @@ jobs:
               await page.goto(`http://127.0.0.1:8000${path}`,{waitUntil:'domcontentloaded',timeout:30000});
               await page.waitForTimeout(1200);
               const info=await page.evaluate(()=>{
-                const hero=document.querySelector('main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
+                const hero=document.querySelector('.elementor-element[data-id="1326b4b"],.elementor-element[data-id="7e3c9a4"],main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
                 const heroBefore=hero?getComputedStyle(hero,'::before'):null;
+                const heroOverlay=hero?.querySelector(':scope > .elementor-background-overlay');
                 const heroWrap=hero?.querySelector('.elementor-widget-wrap');
-                const h1=hero?.querySelector('h1');
+                const heroTitle=hero?.querySelector('h1,.elementor-element[data-id="0d2d40c"] .elementor-heading-title,.elementor-element[data-id="6dd604c"] .elementor-heading-title,.elementor-heading-title');
                 const logo=document.querySelector('header .custom-logo');
                 const footer=document.querySelector('#colophon.premium-footer');
                 const serviceImg=document.querySelector('.elementor-element[data-id="7701125"] .elementor-widget-image img');
@@ -70,13 +77,15 @@ jobs:
                   premium:document.body.classList.contains('premium-site'),
                   css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),
                   fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),
+                  inner:[...document.styleSheets].some(s=>String(s.href||'').includes('inner-pages.css')),
                   nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
                   heroExists:!!hero,
-                  heroOverlay:heroBefore?.content && heroBefore.content!=='none',
+                  heroOverlayPseudo:!!(heroBefore?.content && heroBefore.content!=='none'),
+                  heroOverlayElement:heroOverlay ? (getComputedStyle(heroOverlay).display!=='none' && parseFloat(getComputedStyle(heroOverlay).opacity||'1')>0.01) : false,
                   heroRadius:hero?parseFloat(getComputedStyle(hero).borderRadius):0,
                   heroHeight:hero?.getBoundingClientRect().height||0,
                   heroWrapBg:heroWrap?getComputedStyle(heroWrap).backgroundColor:'missing',
-                  heroTextColor:h1?getComputedStyle(h1).color:'missing',
+                  heroTextColor:heroTitle?getComputedStyle(heroTitle).color:'missing',
                   logoFilter:logo?getComputedStyle(logo).filter:'missing',
                   footer:!!footer,
                   footerDisplay:footer?getComputedStyle(footer).display:'missing',
@@ -89,13 +98,13 @@ jobs:
                   viewport:window.innerWidth
                 };
               });
-              if(!info.premium||!info.css||!info.fixes||!info.nav) failures.push(`${name}-${mode}: premium layers missing`);
+              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.nav) failures.push(`${name}-${mode}: premium layers missing ${JSON.stringify({premium:info.premium,css:info.css,fixes:info.fixes,inner:info.inner,nav:info.nav})}`);
               if(heroPages.has(name)){
                 if(!info.heroExists) failures.push(`${name}-${mode}: hero missing`);
-                if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay present`);
+                if(info.heroOverlayPseudo||info.heroOverlayElement) failures.push(`${name}-${mode}: hero overlay present`);
                 if(info.heroRadius<18) failures.push(`${name}-${mode}: hero not rounded (${info.heroRadius})`);
                 if(info.heroWrapBg!=='rgba(0, 0, 0, 0)' && info.heroWrapBg!=='transparent') failures.push(`${name}-${mode}: hero text has background ${info.heroWrapBg}`);
-                if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero h1 is not white (${info.heroTextColor})`);
+                if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero title is not white (${info.heroTextColor})`);
                 if(mode==='desktop'&&info.heroHeight>560) failures.push(`${name}-${mode}: hero too tall (${info.heroHeight})`);
               }
               if(info.logoFilter!=='none') failures.push(`${name}-${mode}: original logo altered (${info.logoFilter})`);
