@@ -10,6 +10,10 @@ on:
       - 'assets/premium.js'
       - 'index.html'
       - 'about/index.html'
+      - 'contact/index.html'
+      - 'metodologia/index.html'
+      - 'psicoterapia/index.html'
+      - 'terapia-a-la-natura/index.html'
       - 'es/index.html'
   workflow_dispatch:
 
@@ -37,35 +41,49 @@ jobs:
           import fs from 'fs';
           fs.mkdirSync('shots',{recursive:true});
           const browser=await chromium.launch({headless:true});
-          const targets=[['home','http://127.0.0.1:8000/'],['about','http://127.0.0.1:8000/about/'],['es','http://127.0.0.1:8000/es/']];
+          const allRoutes=[
+            ['home','/'],['about','/about/'],['contact','/contact/'],['metodologia','/metodologia/'],
+            ['psicoterapia','/psicoterapia/'],['natura','/terapia-a-la-natura/'],['privacy','/privacy-policy/'],
+            ['es','/es/'],['es-contacto','/es/contacto/'],['es-metodologia','/es/metodologia/'],
+            ['es-psicoterapia','/es/psicoterapia/'],['es-about','/es/sobre-nosotros/'],
+            ['es-natura','/es/terapia-en-la-naturaleza/'],['es-terms','/es/terminos-y-condiciones/']
+          ];
+          const screenshotNames=new Set(['home','about','psicoterapia','es','es-about']);
           let failures=[];
-          for (const [name,url] of targets){
+          for (const [name,path] of allRoutes){
             for (const [mode,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
               const page=await browser.newPage({viewport:{width:w,height:h}});
-              await page.goto(url,{waitUntil:'networkidle',timeout:120000});
+              await page.goto(`http://127.0.0.1:8000${path}`,{waitUntil:'networkidle',timeout:120000});
               await page.evaluate(async()=>{if(document.fonts?.ready) await document.fonts.ready;});
-              await page.waitForTimeout(500);
+              await page.waitForTimeout(450);
               const info=await page.evaluate(()=>{
                 const hero=document.querySelector('main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
                 const heroBefore=hero?getComputedStyle(hero,'::before'):null;
+                const heroWrap=hero?.querySelector('.elementor-widget-wrap');
+                const h1=hero?.querySelector('h1');
                 const logo=document.querySelector('header .custom-logo');
-                const imgs=[...document.querySelectorAll('.elementor-widget-image img')];
-                const credential=document.querySelector('.elementor-element[data-id="a5f07c6"] img');
+                const footer=document.querySelector('#colophon.premium-footer');
+                const serviceImg=document.querySelector('.elementor-element[data-id="7701125"] .elementor-widget-image img');
+                const contentImg=document.querySelector('.elementor-section:not(:first-child) .elementor-widget-image img');
                 const desktopSub=document.querySelector('#ast-desktop-header .sub-menu');
                 const mobileContent=document.querySelector('#ast-mobile-header .ast-mobile-header-content');
                 return {
-                  title:document.title,
                   premium:document.body.classList.contains('premium-site'),
                   css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),
                   fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),
                   nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
-                  h1:document.querySelector('h1')?.innerText||'',
-                  canonical:document.querySelector('link[rel="canonical"]')?.href||'',
                   heroOverlay:heroBefore?.content && heroBefore.content!=='none',
+                  heroRadius:hero?parseFloat(getComputedStyle(hero).borderRadius):0,
+                  heroHeight:hero?.getBoundingClientRect().height||0,
+                  heroWrapBg:heroWrap?getComputedStyle(heroWrap).backgroundColor:'missing',
+                  heroTextColor:h1?getComputedStyle(h1).color:'missing',
                   logoFilter:logo?getComputedStyle(logo).filter:'missing',
-                  logoSrc:logo?.src||'',
-                  filteredImages:imgs.filter(img=>getComputedStyle(img).filter!=='none').length,
-                  credentialFilter:credential?getComputedStyle(credential).filter:'n/a',
+                  footer:!!footer,
+                  footerDisplay:footer?getComputedStyle(footer).display:'missing',
+                  footerLogo:footer?.querySelector('img')?.src||'',
+                  serviceRadius:serviceImg?parseFloat(getComputedStyle(serviceImg).borderRadius):null,
+                  serviceHeight:serviceImg?.getBoundingClientRect().height||null,
+                  contentRadius:contentImg?parseFloat(getComputedStyle(contentImg).borderRadius):null,
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
@@ -73,15 +91,21 @@ jobs:
                 };
               });
               if(!info.premium||!info.css||!info.fixes||!info.nav) failures.push(`${name}-${mode}: premium layers missing`);
-              if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay still present`);
-              if(info.logoFilter!=='none') failures.push(`${name}-${mode}: logo filter=${info.logoFilter}`);
-              if(info.filteredImages>0) failures.push(`${name}-${mode}: ${info.filteredImages} filtered images`);
-              if(info.credentialFilter!=='n/a'&&info.credentialFilter!=='none') failures.push(`${name}-${mode}: credential logo filter=${info.credentialFilter}`);
+              if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay present`);
+              if(info.heroRadius<18) failures.push(`${name}-${mode}: hero not rounded (${info.heroRadius})`);
+              if(info.heroWrapBg!=='rgba(0, 0, 0, 0)' && info.heroWrapBg!=='transparent') failures.push(`${name}-${mode}: hero text has background ${info.heroWrapBg}`);
+              if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero h1 is not white (${info.heroTextColor})`);
+              if(info.logoFilter!=='none') failures.push(`${name}-${mode}: original logo altered (${info.logoFilter})`);
+              if(!info.footer||info.footerDisplay==='none') failures.push(`${name}-${mode}: footer missing`);
+              if(!info.footerLogo.includes('Logo_retallat')) failures.push(`${name}-${mode}: footer original logo missing`);
+              if(info.serviceRadius!==null&&info.serviceRadius<16) failures.push(`${name}-${mode}: service photo not rounded`);
+              if(mode==='desktop'&&info.serviceHeight&&info.serviceHeight>380) failures.push(`${name}-${mode}: service photo too tall (${info.serviceHeight})`);
+              if(info.contentRadius!==null&&info.contentRadius<16 && name!=='home') failures.push(`${name}-${mode}: content photo not rounded`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
-              await page.screenshot({path:`shots/${name}-${mode}.png`,fullPage:true});
+              if(screenshotNames.has(name)) await page.screenshot({path:`shots/${name}-${mode}.png`,fullPage:true});
               await page.close();
             }
           }
