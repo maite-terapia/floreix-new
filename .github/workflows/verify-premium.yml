@@ -1,5 +1,6 @@
 name: verify-premium
 
+# Final visual QA after premium editorial refinements.
 on:
   push:
     paths:
@@ -41,12 +42,12 @@ jobs:
                 const max=document.documentElement.scrollHeight;
                 for(let y=0;y<max;y+=Math.max(420,window.innerHeight*.72)){
                   window.scrollTo(0,y);
-                  await sleep(90);
+                  await sleep(100);
                 }
                 window.scrollTo(0,0);
-                await sleep(500);
+                await sleep(700);
               });
-              const info=await page.evaluate(()=>({title:document.title,premium:document.body.classList.contains('premium-site'),h1:document.querySelector('h1')?.innerText||'',css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),canonical:document.querySelector('link[rel="canonical"]')?.href||''}));
+              const info=await page.evaluate(()=>({title:document.title,premium:document.body.classList.contains('premium-site'),h1:document.querySelector('h1')?.innerText||'',css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),canonical:document.querySelector('link[rel="canonical"]')?.href||''}));
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
               await page.screenshot({path:`shots/${name}-${mode}.png`,fullPage:true});
               await page.close();
