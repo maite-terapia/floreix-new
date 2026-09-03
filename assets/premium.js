@@ -3,6 +3,10 @@
   body.classList.add('premium-site');
 
   const ORIGINAL_LOGO = 'https://floreix.com/wp-content/uploads/2023/11/cropped-cropped-Logo_retallat-transformed-PhotoRoom.png-PhotoRoom.png';
+  const MAITE_HOME = 'https://floreix.com/wp-content/uploads/2023/11/Terapia-a-la-natura-pagina-principal.webp';
+  const COPC = 'https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10-1024x301.png';
+  const UB = 'https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png';
+  const UOC = 'https://floreix.com/wp-content/uploads/2024/02/uoc_masterbrand_2linies_posititiu.jpg';
   const BASE = 'https://maite-terapia.github.io/floreix-new/';
 
   const onScroll = () => body.classList.toggle('premium-scrolled', window.scrollY > 42);
@@ -21,6 +25,22 @@
     img.style.filter = 'none';
     img.style.borderRadius = '0';
   });
+
+  /* Preserve key original photography and institutional artwork even if WP lazy-loading/srcset misbehaves. */
+  const forceImage = (selector, src) => {
+    const img = document.querySelector(selector);
+    if (!img) return;
+    img.src = src;
+    img.removeAttribute('srcset');
+    img.removeAttribute('sizes');
+    img.loading = 'eager';
+    img.decoding = 'async';
+    img.style.filter = 'none';
+  };
+  forceImage('.elementor-element[data-id="ec75349"] img', MAITE_HOME);
+  forceImage('.elementor-element[data-id="3935f1d"] img', COPC);
+  forceImage('.elementor-element[data-id="b906cc5"] img', UB);
+  forceImage('.elementor-element[data-id="5495d3c"] img', UOC);
 
   /* Self-contained mobile navigation. */
   const mobileToggle = document.querySelector('#ast-mobile-header .main-header-menu-toggle');
