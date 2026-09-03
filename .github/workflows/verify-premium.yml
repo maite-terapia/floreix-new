@@ -1,10 +1,15 @@
 name: verify-premium
 
-# Final visual QA after premium editorial refinements.
 on:
   push:
     paths:
       - '.github/workflows/verify-premium.yml'
+      - 'assets/premium.css'
+      - 'assets/premium-fixes.css'
+      - 'assets/premium.js'
+      - 'index.html'
+      - 'about/index.html'
+      - 'es/index.html'
   workflow_dispatch:
 
 permissions:
@@ -23,7 +28,7 @@ jobs:
           npm init -y >/dev/null 2>&1
           npm install playwright@1.55.0 >/dev/null 2>&1
           npx playwright install --with-deps chromium >/dev/null 2>&1
-      - name: Serve and capture
+      - name: Serve, validate and capture
         run: |
           python3 -m http.server 8000 >/tmp/server.log 2>&1 &
           cat > verify.mjs <<'EOF'
@@ -32,6 +37,7 @@ jobs:
           fs.mkdirSync('shots',{recursive:true});
           const browser=await chromium.launch({headless:true});
           const targets=[['home','http://127.0.0.1:8000/'],['about','http://127.0.0.1:8000/about/'],['es','http://127.0.0.1:8000/es/']];
+          let failures=[];
           for (const [name,url] of targets){
             for (const [mode,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
               const page=await browser.newPage({viewport:{width:w,height:h}});
@@ -42,21 +48,52 @@ jobs:
                 const max=document.documentElement.scrollHeight;
                 for(let y=0;y<max;y+=Math.max(420,window.innerHeight*.72)){
                   window.scrollTo(0,y);
-                  await sleep(100);
+                  await sleep(80);
                 }
                 window.scrollTo(0,0);
-                await sleep(700);
+                await sleep(500);
               });
-              const info=await page.evaluate(()=>({title:document.title,premium:document.body.classList.contains('premium-site'),h1:document.querySelector('h1')?.innerText||'',css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),canonical:document.querySelector('link[rel="canonical"]')?.href||''}));
+              const info=await page.evaluate(()=>{
+                const hero=document.querySelector('main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
+                const heroBefore=hero?getComputedStyle(hero,'::before'):null;
+                const logo=document.querySelector('header .custom-logo');
+                const imgs=[...document.querySelectorAll('.elementor-widget-image img')];
+                const credential=document.querySelector('.elementor-element[data-id="a5f07c6"] img');
+                const badRounded=imgs.filter(img=>parseFloat(getComputedStyle(img).borderRadius)>1).length;
+                const filtered=imgs.filter(img=>getComputedStyle(img).filter!=='none').length;
+                return {
+                  title:document.title,
+                  premium:document.body.classList.contains('premium-site'),
+                  css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),
+                  fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),
+                  h1:document.querySelector('h1')?.innerText||'',
+                  canonical:document.querySelector('link[rel="canonical"]')?.href||'',
+                  heroOverlay:heroBefore?.content && heroBefore.content!=='none',
+                  logoFilter:logo?getComputedStyle(logo).filter:'missing',
+                  roundedImages:badRounded,
+                  filteredImages:filtered,
+                  credentialFilter:credential?getComputedStyle(credential).filter:'n/a',
+                  width:document.documentElement.scrollWidth,
+                  viewport:window.innerWidth
+                };
+              });
+              if(!info.premium||!info.css||!info.fixes) failures.push(`${name}-${mode}: premium styles missing`);
+              if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay still present`);
+              if(info.logoFilter!=='none') failures.push(`${name}-${mode}: logo filter=${info.logoFilter}`);
+              if(info.filteredImages>0) failures.push(`${name}-${mode}: ${info.filteredImages} filtered images`);
+              if(info.credentialFilter!=='n/a'&&info.credentialFilter!=='none') failures.push(`${name}-${mode}: credential logo filter=${info.credentialFilter}`);
+              if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
               await page.screenshot({path:`shots/${name}-${mode}.png`,fullPage:true});
               await page.close();
             }
           }
           await browser.close();
+          if(failures.length){console.error(failures.join('\n'));process.exit(1)}
           EOF
           node verify.mjs
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: premium-visual-verification
           path: shots/
