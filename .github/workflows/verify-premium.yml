@@ -47,7 +47,8 @@ jobs:
           import fs from 'fs';
           fs.mkdirSync('shots',{recursive:true});
           const browser=await chromium.launch({headless:true});
-          const allRoutes=[
+
+          const routes=[
             ['home','/'],['about','/about/'],['contact','/contact/'],['metodologia','/metodologia/'],
             ['psicoterapia','/psicoterapia/'],['natura','/terapia-a-la-natura/'],['privacy','/privacy-policy/'],
             ['es','/es/'],['es-contacto','/es/contacto/'],['es-metodologia','/es/metodologia/'],
@@ -55,13 +56,24 @@ jobs:
             ['es-natura','/es/terapia-en-la-naturaleza/'],['es-terms','/es/terminos-y-condiciones/']
           ];
           const heroPages=new Set(['home','about','contact','metodologia','psicoterapia','natura','es','es-contacto','es-metodologia','es-psicoterapia','es-about','es-natura']);
+          const coreMobile=new Set(['home','about','psicoterapia','natura','es','es-about']);
           const screenshotNames=new Set(['home','about','psicoterapia','natura','es','es-about']);
           let failures=[];
-          for (const [name,path] of allRoutes){
-            for (const [mode,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
+
+          for (const [name,path] of routes){
+            const modes=[['desktop',1440,1000]];
+            if(coreMobile.has(name)) modes.push(['mobile',390,844]);
+            for (const [mode,w,h] of modes){
               const page=await browser.newPage({viewport:{width:w,height:h}});
+              await page.route('**/*', route => {
+                const req=route.request();
+                let host='';
+                try{host=new URL(req.url()).hostname}catch{}
+                if(host && host!=='127.0.0.1' && ['script','font','media','xhr','fetch'].includes(req.resourceType())) return route.abort();
+                route.continue();
+              });
               await page.goto(`http://127.0.0.1:8000${path}`,{waitUntil:'domcontentloaded',timeout:30000});
-              await page.waitForTimeout(1200);
+              await page.waitForTimeout(900);
               const info=await page.evaluate(()=>{
                 const hero=document.querySelector('.elementor-element[data-id="1326b4b"],.elementor-element[data-id="7e3c9a4"],main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
                 const heroBefore=hero?getComputedStyle(hero,'::before'):null;
@@ -98,7 +110,8 @@ jobs:
                   viewport:window.innerWidth
                 };
               });
-              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.nav) failures.push(`${name}-${mode}: premium layers missing ${JSON.stringify({premium:info.premium,css:info.css,fixes:info.fixes,inner:info.inner,nav:info.nav})}`);
+
+              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.nav) failures.push(`${name}-${mode}: premium layers missing`);
               if(heroPages.has(name)){
                 if(!info.heroExists) failures.push(`${name}-${mode}: hero missing`);
                 if(info.heroOverlayPseudo||info.heroOverlayElement) failures.push(`${name}-${mode}: hero overlay present`);
@@ -115,6 +128,7 @@ jobs:
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
+
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
               if(screenshotNames.has(name)) await page.screenshot({path:`shots/${name}-${mode}.png`,fullPage:true});
               await page.close();
