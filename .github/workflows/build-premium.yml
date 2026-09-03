@@ -6,6 +6,7 @@ on:
       - '.github/workflows/build-premium.yml'
       - 'assets/premium.css'
       - 'assets/premium-fixes.css'
+      - 'assets/inner-pages.css'
       - 'assets/navigation.css'
       - 'assets/premium.js'
   workflow_dispatch:
@@ -74,18 +75,20 @@ jobs:
 
             html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/premium\.css[^>]*>','',html)
             html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/premium-fixes\.css[^>]*>','',html)
+            html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/inner-pages\.css[^>]*>','',html)
             html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/navigation\.css[^>]*>','',html)
             html = re.sub(r'<script src="[^"]*assets/premium\.js[^>]*></script>','',html)
             html = re.sub(r'<meta name="theme-color" content="#[0-9A-Fa-f]{6}">','',html)
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=9">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=9">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=9">'
-            js = f'<script src="{prefix}assets/premium.js?v=9" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=10">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=10">'
+            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=10">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=10">'
+            js = f'<script src="{prefix}assets/premium.js?v=10" defer></script>'
 
-            html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{navigation}\n</head>', 1)
+            html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{navigation}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
             path.write_text(html, encoding='utf-8')
 
