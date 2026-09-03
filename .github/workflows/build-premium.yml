@@ -1,0 +1,119 @@
+name: build-premium-site
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-premium.yml'
+      - 'assets/premium.css'
+      - 'assets/premium.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy exact content and photography from Floreix
+        run: |
+          set -e
+          SRC='https://raw.githubusercontent.com/maite-terapia/floreix/main'
+          files=(
+            'index.html'
+            'about/index.html'
+            'contact/index.html'
+            'metodologia/index.html'
+            'privacy-policy/index.html'
+            'psicoterapia/index.html'
+            'terapia-a-la-natura/index.html'
+            'es/index.html'
+            'es/contacto/index.html'
+            'es/metodologia/index.html'
+            'es/psicoterapia/index.html'
+            'es/sobre-nosotros/index.html'
+            'es/terapia-en-la-naturaleza/index.html'
+            'es/terminos-y-condiciones/index.html'
+          )
+          for f in "${files[@]}"; do
+            mkdir -p "$(dirname "$f")"
+            curl -fsSL "$SRC/$f" -o "$f"
+            echo "Copied $f"
+          done
+
+      - name: Apply premium visual layer and new repository routes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          old = 'https://maite-terapia.github.io/floreix/'
+          new = 'https://maite-terapia.github.io/floreix-new/'
+
+          files = [
+            Path('index.html'), Path('about/index.html'), Path('contact/index.html'),
+            Path('metodologia/index.html'), Path('privacy-policy/index.html'),
+            Path('psicoterapia/index.html'), Path('terapia-a-la-natura/index.html'),
+            Path('es/index.html'), Path('es/contacto/index.html'), Path('es/metodologia/index.html'),
+            Path('es/psicoterapia/index.html'), Path('es/sobre-nosotros/index.html'),
+            Path('es/terapia-en-la-naturaleza/index.html'), Path('es/terminos-y-condiciones/index.html')
+          ]
+
+          css = f'<link rel="stylesheet" href="{new}assets/premium.css?v=3">'
+          js = f'<script src="{new}assets/premium.js?v=3" defer></script>'
+          marker = '<meta name="theme-color" content="#153129">'
+
+          for path in files:
+            html = path.read_text(encoding='utf-8')
+            html = html.replace(old, new)
+            html = html.replace('https://maite-terapia.github.io/floreix', 'https://maite-terapia.github.io/floreix-new')
+            html = html.replace('Static visual replica of floreix.com', 'Premium Floreix concept')
+
+            # Avoid duplicate injections on rebuilds.
+            html = re.sub(r'<link rel="stylesheet" href="https://maite-terapia\.github\.io/floreix-new/assets/premium\.css[^>]*>','',html)
+            html = re.sub(r'<script src="https://maite-terapia\.github\.io/floreix-new/assets/premium\.js[^>]*></script>','',html)
+            html = html.replace(marker, '')
+
+            html = html.replace('</head>', f'{marker}\n{css}\n</head>', 1)
+            html = html.replace('</body>', f'{js}\n</body>', 1)
+            path.write_text(html, encoding='utf-8')
+
+          Path('404.html').write_text('''<!doctype html><html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=https://maite-terapia.github.io/floreix-new/"><title>Floreix</title></head><body></body></html>''',encoding='utf-8')
+          PY
+
+      - name: Add Pages compatibility
+        run: |
+          touch .nojekyll
+          cat > robots.txt <<'EOF'
+          User-agent: *
+          Allow: /
+          Sitemap: https://maite-terapia.github.io/floreix-new/sitemap.xml
+          EOF
+          cat > sitemap.xml <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            <url><loc>https://maite-terapia.github.io/floreix-new/</loc></url>
+            <url><loc>https://maite-terapia.github.io/floreix-new/psicoterapia/</loc></url>
+            <url><loc>https://maite-terapia.github.io/floreix-new/terapia-a-la-natura/</loc></url>
+            <url><loc>https://maite-terapia.github.io/floreix-new/about/</loc></url>
+            <url><loc>https://maite-terapia.github.io/floreix-new/metodologia/</loc></url>
+            <url><loc>https://maite-terapia.github.io/floreix-new/contact/</loc></url>
+            <url><loc>https://maite-terapia.github.io/floreix-new/es/</loc></url>
+          </urlset>
+          EOF
+
+      - name: Commit generated site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html about contact metodologia privacy-policy psicoterapia terapia-a-la-natura es 404.html .nojekyll robots.txt sitemap.xml
+          if git diff --cached --quiet; then
+            echo 'No generated changes.'
+          else
+            git commit -m 'Generate premium Floreix website'
+            git push origin main
+          fi
