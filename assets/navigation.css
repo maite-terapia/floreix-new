@@ -1,0 +1,29 @@
+/* Self-contained navigation: does not depend on remote Astra CSS for basic usability */
+body.premium-site #ast-desktop-header{display:block!important}
+body.premium-site #ast-mobile-header{display:none!important}
+body.premium-site #ast-desktop-header .main-header-menu{display:flex!important;align-items:center!important;gap:2px!important;margin:0!important;padding:0!important;list-style:none!important}
+body.premium-site #ast-desktop-header .main-header-menu>li{position:relative!important;list-style:none!important}
+body.premium-site #ast-desktop-header .main-header-menu .sub-menu{display:none!important;position:absolute!important;top:100%!important;left:0!important;z-index:1002!important;margin:0!important;list-style:none!important}
+body.premium-site #ast-desktop-header .main-header-menu li:hover>.sub-menu,body.premium-site #ast-desktop-header .main-header-menu li:focus-within>.sub-menu{display:block!important}
+body.premium-site #ast-desktop-header .ast-menu-toggle{display:none!important}
+body.premium-site .site-header-primary-section-left,body.premium-site .site-header-primary-section-right{display:flex!important;align-items:center!important}
+body.premium-site .site-header-primary-section-right{justify-content:flex-end!important}
+body.premium-site .ast-builder-grid-row-has-sides{display:grid!important;grid-template-columns:auto 1fr!important;width:100%!important}
+body.premium-site .main-header-bar-navigation,body.premium-site .main-navigation{display:block!important}
+
+@media(max-width:921px){
+  body.premium-site #ast-desktop-header{display:none!important}
+  body.premium-site #ast-mobile-header{display:block!important}
+  body.premium-site #ast-mobile-header .ast-builder-grid-row-has-sides{display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important}
+  body.premium-site #ast-mobile-header .ast-mobile-header-content{display:none!important;position:absolute!important;top:100%!important;left:0!important;right:0!important;z-index:1001!important;width:100%!important;max-height:calc(100vh - 72px)!important;overflow:auto!important}
+  body.premium-site.premium-mobile-open #ast-mobile-header .ast-mobile-header-content{display:block!important}
+  body.premium-site #ast-mobile-header .main-header-menu{display:block!important;margin:0!important;padding:0!important;list-style:none!important}
+  body.premium-site #ast-mobile-header .main-header-menu>li{display:block!important;position:relative!important;border-bottom:1px solid var(--line)!important;list-style:none!important}
+  body.premium-site #ast-mobile-header .main-header-menu>li:last-child{border-bottom:0!important}
+  body.premium-site #ast-mobile-header .main-header-menu .sub-menu{display:none!important;position:static!important;width:100%!important;margin:0!important;padding:0 0 8px 14px!important;background:transparent!important;border:0!important;box-shadow:none!important;list-style:none!important}
+  body.premium-site #ast-mobile-header .main-header-menu li.premium-submenu-open>.sub-menu{display:block!important}
+  body.premium-site #ast-mobile-header .main-header-menu .sub-menu li{list-style:none!important}
+  body.premium-site #ast-mobile-header .main-header-menu .sub-menu a{padding:10px 4px!important}
+  body.premium-site #ast-mobile-header .ast-menu-toggle{display:inline-flex!important;position:absolute!important;right:0!important;top:6px!important;width:42px!important;height:42px!important;align-items:center!important;justify-content:center!important;background:transparent!important;border:0!important;color:var(--ink)!important}
+  body.premium-site #ast-mobile-header .dropdown-menu-toggle{pointer-events:none!important}
+}
