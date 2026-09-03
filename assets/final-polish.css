@@ -1,0 +1,103 @@
+/* Final polish — remove residual WordPress overlays and make preserved imagery deterministic */
+
+/* No Elementor tint/overlay on the hero of any page. */
+body.premium-site main .elementor>.elementor-section:first-child>.elementor-background-overlay,
+body.premium-site .entry-content>.elementor>.elementor-section:first-child>.elementor-background-overlay,
+body.premium-site main .elementor>.elementor-section:first-child .elementor-background-overlay,
+body.premium-site .entry-content>.elementor>.elementor-section:first-child .elementor-background-overlay{
+  display:none!important;
+  opacity:0!important;
+  background:none!important;
+  filter:none!important;
+}
+
+/* Keep top imagery compact on desktop. */
+@media(min-width:922px){
+  body.premium-site main .elementor>.elementor-section:first-child,
+  body.premium-site .entry-content>.elementor>.elementor-section:first-child{
+    max-height:500px!important;
+  }
+  body.premium-site.home main .elementor>.elementor-section:first-child,
+  body.premium-site.home .entry-content>.elementor>.elementor-section:first-child{
+    height:500px!important;
+    min-height:500px!important;
+    max-height:500px!important;
+  }
+}
+
+/* Service hero subcopy must remain white directly on the image. */
+body.premium-site .elementor-element[data-id="0902cae"],
+body.premium-site .elementor-element[data-id="0902cae"] *,
+body.premium-site .elementor-element[data-id="810c0c1"],
+body.premium-site .elementor-element[data-id="810c0c1"] *{
+  color:#fff!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.42)!important;
+}
+
+/* Maite photo: preserve it as an integral part of the home layout even if WordPress lazy-loading fails. */
+body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="5a72831"]{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  min-height:540px!important;
+  background-image:url('https://floreix.com/wp-content/uploads/2023/11/Terapia-a-la-natura-pagina-principal.webp')!important;
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+}
+body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="ec75349"],
+body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="ec75349"] .elementor-widget-container,
+body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="ec75349"] img{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="ec75349"] img{
+  width:100%!important;
+  height:100%!important;
+  min-height:540px!important;
+  max-height:620px!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:0!important;
+  filter:none!important;
+}
+
+/* Institutional logos: always show their original colour artwork. */
+body.premium-site .elementor-element[data-id="3935f1d"],
+body.premium-site .elementor-element[data-id="b906cc5"],
+body.premium-site .elementor-element[data-id="5495d3c"]{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+body.premium-site .elementor-element[data-id="3935f1d"] img,
+body.premium-site .elementor-element[data-id="b906cc5"] img,
+body.premium-site .elementor-element[data-id="5495d3c"] img{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  filter:none!important;
+  border-radius:0!important;
+  max-width:100%!important;
+  margin:auto!important;
+}
+
+/* A little more modern softness for the information blocks on About. */
+body.premium-site .elementor-widget-wrap[style*="background"],
+body.premium-site .e-con[style*="background"]{
+  border-radius:18px;
+}
+
+@media(max-width:921px){
+  body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="5a72831"]{
+    display:block!important;
+    min-height:360px!important;
+    background-position:center!important;
+  }
+  body.premium-site .elementor-element[data-id="bf1e175"] .elementor-element[data-id="ec75349"] img{
+    min-height:360px!important;
+    height:360px!important;
+    max-height:360px!important;
+  }
+}
