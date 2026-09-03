@@ -68,18 +68,16 @@ jobs:
           for path in files:
             html = path.read_text(encoding='utf-8')
             html = html.replace(old, new)
-            html = html.replace('https://maite-terapia.github.io/floreix', 'https://maite-terapia.github.io/floreix-new')
             html = html.replace('Static visual replica of floreix.com', 'Premium Floreix concept')
 
-            # Remove previous premium injections, if any.
             html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/premium\.css[^>]*>','',html)
             html = re.sub(r'<script src="[^"]*assets/premium\.js[^>]*></script>','',html)
             html = html.replace(marker, '')
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=5">'
-            js = f'<script src="{prefix}assets/premium.js?v=5" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=6">'
+            js = f'<script src="{prefix}assets/premium.js?v=6" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
