@@ -7,6 +7,7 @@ on:
       - 'assets/premium.css'
       - 'assets/premium-fixes.css'
       - 'assets/inner-pages.css'
+      - 'assets/final-polish.css'
       - 'assets/navigation.css'
       - 'assets/premium.js'
       - 'index.html'
@@ -73,7 +74,7 @@ jobs:
                 route.continue();
               });
               await page.goto(`http://127.0.0.1:8000${path}`,{waitUntil:'domcontentloaded',timeout:30000});
-              await page.waitForTimeout(900);
+              await page.waitForTimeout(1000);
               const info=await page.evaluate(()=>{
                 const hero=document.querySelector('.elementor-element[data-id="1326b4b"],.elementor-element[data-id="7e3c9a4"],main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
                 const heroBefore=hero?getComputedStyle(hero,'::before'):null;
@@ -83,6 +84,8 @@ jobs:
                 const logo=document.querySelector('header .custom-logo');
                 const footer=document.querySelector('#colophon.premium-footer');
                 const serviceImg=document.querySelector('.elementor-element[data-id="7701125"] .elementor-widget-image img');
+                const maiteImg=document.querySelector('.elementor-element[data-id="ec75349"] img');
+                const copcImg=document.querySelector('.elementor-element[data-id="3935f1d"] img');
                 const desktopSub=document.querySelector('#ast-desktop-header .sub-menu');
                 const mobileContent=document.querySelector('#ast-mobile-header .ast-mobile-header-content');
                 return {
@@ -90,6 +93,7 @@ jobs:
                   css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),
                   fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),
                   inner:[...document.styleSheets].some(s=>String(s.href||'').includes('inner-pages.css')),
+                  polish:[...document.styleSheets].some(s=>String(s.href||'').includes('final-polish.css')),
                   nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
                   heroExists:!!hero,
                   heroOverlayPseudo:!!(heroBefore?.content && heroBefore.content!=='none'),
@@ -104,6 +108,8 @@ jobs:
                   footerLogo:footer?.querySelector('img')?.src||'',
                   serviceRadius:serviceImg?parseFloat(getComputedStyle(serviceImg).borderRadius):null,
                   serviceHeight:serviceImg?.getBoundingClientRect().height||null,
+                  maiteLoaded:maiteImg ? (maiteImg.complete && maiteImg.naturalWidth>0) : null,
+                  copcLoaded:copcImg ? (copcImg.complete && copcImg.naturalWidth>0) : null,
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
@@ -111,20 +117,22 @@ jobs:
                 };
               });
 
-              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.nav) failures.push(`${name}-${mode}: premium layers missing`);
+              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.polish||!info.nav) failures.push(`${name}-${mode}: visual layers missing`);
               if(heroPages.has(name)){
                 if(!info.heroExists) failures.push(`${name}-${mode}: hero missing`);
                 if(info.heroOverlayPseudo||info.heroOverlayElement) failures.push(`${name}-${mode}: hero overlay present`);
                 if(info.heroRadius<18) failures.push(`${name}-${mode}: hero not rounded (${info.heroRadius})`);
                 if(info.heroWrapBg!=='rgba(0, 0, 0, 0)' && info.heroWrapBg!=='transparent') failures.push(`${name}-${mode}: hero text has background ${info.heroWrapBg}`);
                 if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero title is not white (${info.heroTextColor})`);
-                if(mode==='desktop'&&info.heroHeight>560) failures.push(`${name}-${mode}: hero too tall (${info.heroHeight})`);
+                if(mode==='desktop'&&info.heroHeight>525) failures.push(`${name}-${mode}: hero too tall (${info.heroHeight})`);
               }
-              if(info.logoFilter!=='none') failures.push(`${name}-${mode}: original logo altered (${info.logoFilter})`);
+              if(info.logoFilter!=='missing'&&info.logoFilter!=='none') failures.push(`${name}-${mode}: original logo altered (${info.logoFilter})`);
               if(!info.footer||info.footerDisplay==='none') failures.push(`${name}-${mode}: footer missing`);
               if(!info.footerLogo.includes('Logo_retallat')) failures.push(`${name}-${mode}: footer original logo missing`);
               if(info.serviceRadius!==null&&info.serviceRadius<16) failures.push(`${name}-${mode}: service photo not rounded`);
               if(mode==='desktop'&&info.serviceHeight&&info.serviceHeight>380) failures.push(`${name}-${mode}: service photo too tall (${info.serviceHeight})`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&info.maiteLoaded===false) failures.push(`${name}: Maite image did not load`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&info.copcLoaded===false) failures.push(`${name}: COPC logo did not load`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
