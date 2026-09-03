@@ -6,6 +6,7 @@ on:
       - '.github/workflows/verify-premium.yml'
       - 'assets/premium.css'
       - 'assets/premium-fixes.css'
+      - 'assets/navigation.css'
       - 'assets/premium.js'
       - 'index.html'
       - 'about/index.html'
@@ -43,45 +44,41 @@ jobs:
               const page=await browser.newPage({viewport:{width:w,height:h}});
               await page.goto(url,{waitUntil:'networkidle',timeout:120000});
               await page.evaluate(async()=>{if(document.fonts?.ready) await document.fonts.ready;});
-              await page.evaluate(async()=>{
-                const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-                const max=document.documentElement.scrollHeight;
-                for(let y=0;y<max;y+=Math.max(420,window.innerHeight*.72)){
-                  window.scrollTo(0,y);
-                  await sleep(80);
-                }
-                window.scrollTo(0,0);
-                await sleep(500);
-              });
+              await page.waitForTimeout(500);
               const info=await page.evaluate(()=>{
                 const hero=document.querySelector('main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
                 const heroBefore=hero?getComputedStyle(hero,'::before'):null;
                 const logo=document.querySelector('header .custom-logo');
                 const imgs=[...document.querySelectorAll('.elementor-widget-image img')];
                 const credential=document.querySelector('.elementor-element[data-id="a5f07c6"] img');
-                const badRounded=imgs.filter(img=>parseFloat(getComputedStyle(img).borderRadius)>1).length;
-                const filtered=imgs.filter(img=>getComputedStyle(img).filter!=='none').length;
+                const desktopSub=document.querySelector('#ast-desktop-header .sub-menu');
+                const mobileContent=document.querySelector('#ast-mobile-header .ast-mobile-header-content');
                 return {
                   title:document.title,
                   premium:document.body.classList.contains('premium-site'),
                   css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),
                   fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),
+                  nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
                   h1:document.querySelector('h1')?.innerText||'',
                   canonical:document.querySelector('link[rel="canonical"]')?.href||'',
                   heroOverlay:heroBefore?.content && heroBefore.content!=='none',
                   logoFilter:logo?getComputedStyle(logo).filter:'missing',
-                  roundedImages:badRounded,
-                  filteredImages:filtered,
+                  logoSrc:logo?.src||'',
+                  filteredImages:imgs.filter(img=>getComputedStyle(img).filter!=='none').length,
                   credentialFilter:credential?getComputedStyle(credential).filter:'n/a',
+                  desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
+                  mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
                   viewport:window.innerWidth
                 };
               });
-              if(!info.premium||!info.css||!info.fixes) failures.push(`${name}-${mode}: premium styles missing`);
+              if(!info.premium||!info.css||!info.fixes||!info.nav) failures.push(`${name}-${mode}: premium layers missing`);
               if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay still present`);
               if(info.logoFilter!=='none') failures.push(`${name}-${mode}: logo filter=${info.logoFilter}`);
               if(info.filteredImages>0) failures.push(`${name}-${mode}: ${info.filteredImages} filtered images`);
               if(info.credentialFilter!=='n/a'&&info.credentialFilter!=='none') failures.push(`${name}-${mode}: credential logo filter=${info.credentialFilter}`);
+              if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
+              if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
               await page.screenshot({path:`shots/${name}-${mode}.png`,fullPage:true});
