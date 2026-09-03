@@ -80,10 +80,10 @@ jobs:
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=8">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=8">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=8">'
-            js = f'<script src="{prefix}assets/premium.js?v=8" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=9">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=9">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=9">'
+            js = f'<script src="{prefix}assets/premium.js?v=9" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{navigation}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
@@ -102,7 +102,7 @@ jobs:
           EOF
           cat > sitemap.xml <<'EOF'
           <?xml version="1.0" encoding="UTF-8"?>
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <urlset xmlns="http://www.sitemaps.org/sitemap/0.9">
             <url><loc>https://maite-terapia.github.io/floreix-new/</loc></url>
             <url><loc>https://maite-terapia.github.io/floreix-new/psicoterapia/</loc></url>
             <url><loc>https://maite-terapia.github.io/floreix-new/terapia-a-la-natura/</loc></url>
