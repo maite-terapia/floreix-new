@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/build-premium.yml'
       - 'assets/premium.css'
+      - 'assets/premium-fixes.css'
       - 'assets/premium.js'
   workflow_dispatch:
 
@@ -71,15 +72,17 @@ jobs:
             html = html.replace('Static visual replica of floreix.com', 'Premium Floreix concept')
 
             html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/premium\.css[^>]*>','',html)
+            html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/premium-fixes\.css[^>]*>','',html)
             html = re.sub(r'<script src="[^"]*assets/premium\.js[^>]*></script>','',html)
             html = html.replace(marker, '')
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=6">'
-            js = f'<script src="{prefix}assets/premium.js?v=6" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=7">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=7">'
+            js = f'<script src="{prefix}assets/premium.js?v=7" defer></script>'
 
-            html = html.replace('</head>', f'{marker}\n{css}\n</head>', 1)
+            html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
             path.write_text(html, encoding='utf-8')
 
