@@ -3,36 +3,24 @@
   body.classList.add('premium-site');
 
   const ORIGINAL_LOGO = 'https://floreix.com/wp-content/uploads/2023/11/cropped-cropped-Logo_retallat-transformed-PhotoRoom.png-PhotoRoom.png';
+  const BASE = 'https://maite-terapia.github.io/floreix-new/';
 
   const onScroll = () => body.classList.toggle('premium-scrolled', window.scrollY > 42);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* Make imported WordPress lazy-loading deterministic on the static site. */
+  /* Make copied WordPress content deterministic on the static site. */
   document.querySelectorAll('.e-con.e-parent').forEach(el => el.classList.add('e-lazyloaded'));
   document.querySelectorAll('img[loading="lazy"]').forEach(img => {
     img.loading = 'eager';
     img.decoding = 'async';
   });
 
-  /* Keep the original Floreix identity and colours. */
+  /* Always use the original Floreix logo and its real colour. */
   document.querySelectorAll('header .custom-logo').forEach(img => {
     img.style.filter = 'none';
+    img.style.borderRadius = '0';
   });
-
-  const footerBrand = document.querySelector('#colophon .ast-footer-html-1 img');
-  if (footerBrand) {
-    footerBrand.src = ORIGINAL_LOGO;
-    footerBrand.removeAttribute('srcset');
-    footerBrand.removeAttribute('sizes');
-    footerBrand.alt = 'Floreix';
-    footerBrand.width = 160;
-    footerBrand.height = 66;
-    footerBrand.style.width = '160px';
-    footerBrand.style.height = 'auto';
-    footerBrand.style.margin = '0 auto';
-    footerBrand.style.filter = 'none';
-  }
 
   /* Self-contained mobile navigation. */
   const mobileToggle = document.querySelector('#ast-mobile-header .main-header-menu-toggle');
@@ -74,24 +62,55 @@
     if (window.innerWidth > 921) body.classList.remove('premium-mobile-open');
   });
 
-  /* Do not inject arbitrary rounded/card treatments into content sections. */
-  const sections = [...document.querySelectorAll('.elementor-section')];
-  sections.forEach(section => {
-    section.classList.remove('premium-panel', 'premium-dark', 'premium-botanical');
-    const text = (section.innerText || '').trim().toLowerCase();
-    if (text.includes('recomanat') || text.includes('recomendado') || section.querySelector('blockquote,.elementor-testimonial-content')) {
-      section.classList.add('premium-quote');
-    }
+  /* Keep content visible and remove old experimental section classes. */
+  document.querySelectorAll('.elementor-section').forEach(section => {
+    section.classList.remove('premium-panel', 'premium-dark', 'premium-botanical', 'premium-quote');
   });
 
-  /* Keep all preserved content visible and reliable on every device. */
   document.querySelectorAll(
     '.elementor-widget-heading,.elementor-widget-text-editor,.elementor-widget-image,.elementor-widget-button,.elementor-widget-testimonial,.elementor-widget-image-box'
-  ).forEach(el => {
-    el.classList.add('premium-reveal', 'is-visible');
-  });
+  ).forEach(el => el.classList.add('premium-reveal', 'is-visible'));
 
-  /* Smooth in-page navigation only when a real target exists. */
+  /* One consistent footer on every page, independent from copied WordPress markup. */
+  const isSpanish = document.documentElement.lang.toLowerCase().startsWith('es') || location.pathname.includes('/es/');
+  const footerLinks = isSpanish
+    ? [
+        ['Contacto', BASE + 'es/contacto/'],
+        ['Sobre nosotros', BASE + 'es/sobre-nosotros/'],
+        ['Metodología', BASE + 'es/metodologia/'],
+        ['Términos y condiciones', BASE + 'es/terminos-y-condiciones/']
+      ]
+    : [
+        ['Contacte', BASE + 'contact/'],
+        ['Sobre nosaltres', BASE + 'about/'],
+        ['Metodologia', BASE + 'metodologia/'],
+        ['Termes i condicions', BASE + 'privacy-policy/']
+      ];
+
+  let footer = document.querySelector('#colophon');
+  if (!footer) {
+    footer = document.createElement('footer');
+    footer.id = 'colophon';
+    footer.className = 'premium-footer';
+    const page = document.querySelector('#page') || document.body;
+    page.appendChild(footer);
+  }
+  footer.classList.add('premium-footer');
+  footer.innerHTML = `
+    <div class="premium-footer-inner">
+      <a class="premium-footer-brand" href="${isSpanish ? BASE + 'es/' : BASE}" aria-label="Floreix">
+        <img src="${ORIGINAL_LOGO}" alt="Floreix" width="150" height="62">
+      </a>
+      <nav class="premium-footer-nav" aria-label="${isSpanish ? 'Navegación del pie' : 'Navegació del peu'}">
+        ${footerLinks.map(([label, href]) => `<a href="${href}">${label}</a>`).join('')}
+      </nav>
+      <div class="premium-footer-meta">
+        <span>Floreix · Psicologia · Mindfulness · Natura</span>
+        <span>© ${new Date().getFullYear()} Floreix</span>
+      </div>
+    </div>`;
+
+  /* Smooth in-page navigation only for real targets. */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
