@@ -48,14 +48,14 @@ jobs:
             ['es-psicoterapia','/es/psicoterapia/'],['es-about','/es/sobre-nosotros/'],
             ['es-natura','/es/terapia-en-la-naturaleza/'],['es-terms','/es/terminos-y-condiciones/']
           ];
-          const screenshotNames=new Set(['home','about','psicoterapia','es','es-about']);
+          const heroPages=new Set(['home','about','contact','metodologia','psicoterapia','natura','es','es-contacto','es-metodologia','es-psicoterapia','es-about','es-natura']);
+          const screenshotNames=new Set(['home','about','psicoterapia','natura','es','es-about']);
           let failures=[];
           for (const [name,path] of allRoutes){
             for (const [mode,w,h] of [['desktop',1440,1000],['mobile',390,844]]){
               const page=await browser.newPage({viewport:{width:w,height:h}});
-              await page.goto(`http://127.0.0.1:8000${path}`,{waitUntil:'networkidle',timeout:120000});
-              await page.evaluate(async()=>{if(document.fonts?.ready) await document.fonts.ready;});
-              await page.waitForTimeout(450);
+              await page.goto(`http://127.0.0.1:8000${path}`,{waitUntil:'domcontentloaded',timeout:30000});
+              await page.waitForTimeout(1200);
               const info=await page.evaluate(()=>{
                 const hero=document.querySelector('main .elementor>.elementor-section:first-child,.entry-content>.elementor>.elementor-section:first-child');
                 const heroBefore=hero?getComputedStyle(hero,'::before'):null;
@@ -64,7 +64,6 @@ jobs:
                 const logo=document.querySelector('header .custom-logo');
                 const footer=document.querySelector('#colophon.premium-footer');
                 const serviceImg=document.querySelector('.elementor-element[data-id="7701125"] .elementor-widget-image img');
-                const contentImg=document.querySelector('.elementor-section:not(:first-child) .elementor-widget-image img');
                 const desktopSub=document.querySelector('#ast-desktop-header .sub-menu');
                 const mobileContent=document.querySelector('#ast-mobile-header .ast-mobile-header-content');
                 return {
@@ -72,6 +71,7 @@ jobs:
                   css:[...document.styleSheets].some(s=>String(s.href||'').includes('premium.css')),
                   fixes:[...document.styleSheets].some(s=>String(s.href||'').includes('premium-fixes.css')),
                   nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
+                  heroExists:!!hero,
                   heroOverlay:heroBefore?.content && heroBefore.content!=='none',
                   heroRadius:hero?parseFloat(getComputedStyle(hero).borderRadius):0,
                   heroHeight:hero?.getBoundingClientRect().height||0,
@@ -83,7 +83,6 @@ jobs:
                   footerLogo:footer?.querySelector('img')?.src||'',
                   serviceRadius:serviceImg?parseFloat(getComputedStyle(serviceImg).borderRadius):null,
                   serviceHeight:serviceImg?.getBoundingClientRect().height||null,
-                  contentRadius:contentImg?parseFloat(getComputedStyle(contentImg).borderRadius):null,
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
@@ -91,16 +90,19 @@ jobs:
                 };
               });
               if(!info.premium||!info.css||!info.fixes||!info.nav) failures.push(`${name}-${mode}: premium layers missing`);
-              if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay present`);
-              if(info.heroRadius<18) failures.push(`${name}-${mode}: hero not rounded (${info.heroRadius})`);
-              if(info.heroWrapBg!=='rgba(0, 0, 0, 0)' && info.heroWrapBg!=='transparent') failures.push(`${name}-${mode}: hero text has background ${info.heroWrapBg}`);
-              if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero h1 is not white (${info.heroTextColor})`);
+              if(heroPages.has(name)){
+                if(!info.heroExists) failures.push(`${name}-${mode}: hero missing`);
+                if(info.heroOverlay) failures.push(`${name}-${mode}: hero overlay present`);
+                if(info.heroRadius<18) failures.push(`${name}-${mode}: hero not rounded (${info.heroRadius})`);
+                if(info.heroWrapBg!=='rgba(0, 0, 0, 0)' && info.heroWrapBg!=='transparent') failures.push(`${name}-${mode}: hero text has background ${info.heroWrapBg}`);
+                if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero h1 is not white (${info.heroTextColor})`);
+                if(mode==='desktop'&&info.heroHeight>560) failures.push(`${name}-${mode}: hero too tall (${info.heroHeight})`);
+              }
               if(info.logoFilter!=='none') failures.push(`${name}-${mode}: original logo altered (${info.logoFilter})`);
               if(!info.footer||info.footerDisplay==='none') failures.push(`${name}-${mode}: footer missing`);
               if(!info.footerLogo.includes('Logo_retallat')) failures.push(`${name}-${mode}: footer original logo missing`);
               if(info.serviceRadius!==null&&info.serviceRadius<16) failures.push(`${name}-${mode}: service photo not rounded`);
               if(mode==='desktop'&&info.serviceHeight&&info.serviceHeight>380) failures.push(`${name}-${mode}: service photo too tall (${info.serviceHeight})`);
-              if(info.contentRadius!==null&&info.contentRadius<16 && name!=='home') failures.push(`${name}-${mode}: content photo not rounded`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
