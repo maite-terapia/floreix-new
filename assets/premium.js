@@ -6,6 +6,14 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  /* The copied Elementor markup includes lazy-loading behaviours intended for WordPress.
+     Make the static version deterministic so all preserved photography is present immediately. */
+  document.querySelectorAll('.e-con.e-parent').forEach(el => el.classList.add('e-lazyloaded'));
+  document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+    img.loading = 'eager';
+    img.decoding = 'async';
+  });
+
   const sections = [...document.querySelectorAll('.elementor-section')];
   sections.forEach((section, index) => {
     if (index > 0) section.classList.add('premium-botanical');
@@ -17,24 +25,11 @@
     }
   });
 
-  const revealTargets = document.querySelectorAll(
-    '.elementor-widget-heading,.elementor-widget-text-editor,.elementor-widget-image,.elementor-widget-button,.elementor-widget-testimonial'
-  );
-  revealTargets.forEach(el => el.classList.add('premium-reveal'));
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
-    revealTargets.forEach(el => observer.observe(el));
-  } else {
-    revealTargets.forEach(el => el.classList.add('is-visible'));
-  }
+  document.querySelectorAll(
+    '.elementor-widget-heading,.elementor-widget-text-editor,.elementor-widget-image,.elementor-widget-button,.elementor-widget-testimonial,.elementor-widget-image-box'
+  ).forEach(el => {
+    el.classList.add('premium-reveal','is-visible');
+  });
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
