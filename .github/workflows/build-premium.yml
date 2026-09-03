@@ -63,8 +63,8 @@ jobs:
             Path('es/terapia-en-la-naturaleza/index.html'), Path('es/terminos-y-condiciones/index.html')
           ]
 
-          css = f'<link rel="stylesheet" href="{new}assets/premium.css?v=3">'
-          js = f'<script src="{new}assets/premium.js?v=3" defer></script>'
+          css = f'<link rel="stylesheet" href="{new}assets/premium.css?v=4">'
+          js = f'<script src="{new}assets/premium.js?v=4" defer></script>'
           marker = '<meta name="theme-color" content="#153129">'
 
           for path in files:
@@ -73,7 +73,6 @@ jobs:
             html = html.replace('https://maite-terapia.github.io/floreix', 'https://maite-terapia.github.io/floreix-new')
             html = html.replace('Static visual replica of floreix.com', 'Premium Floreix concept')
 
-            # Avoid duplicate injections on rebuilds.
             html = re.sub(r'<link rel="stylesheet" href="https://maite-terapia\.github\.io/floreix-new/assets/premium\.css[^>]*>','',html)
             html = re.sub(r'<script src="https://maite-terapia\.github\.io/floreix-new/assets/premium\.js[^>]*></script>','',html)
             html = html.replace(marker, '')
@@ -115,5 +114,6 @@ jobs:
             echo 'No generated changes.'
           else
             git commit -m 'Generate premium Floreix website'
+            git pull --rebase origin main
             git push origin main
           fi
