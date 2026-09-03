@@ -7,6 +7,9 @@
   const COPC = 'https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10-1024x301.png';
   const UB = 'https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png';
   const UOC = 'https://floreix.com/wp-content/uploads/2024/02/uoc_masterbrand_2linies_posititiu.jpg';
+  const THERAPY_INDIVIDUAL = 'https://floreix.com/wp-content/uploads/2026/03/Terapia-individual-ros.webp';
+  const THERAPY_COUPLE = 'https://floreix.com/wp-content/uploads/2026/03/ChatGPT-Image-Mar-11-2026-12_54_39-PM.webp';
+  const THERAPY_FAMILY = 'https://floreix.com/wp-content/uploads/2026/03/Sesion-de-terapia-familiar-sonriente.webp';
   const BASE = 'https://maite-terapia.github.io/floreix-new/';
 
   const onScroll = () => body.classList.toggle('premium-scrolled', window.scrollY > 42);
@@ -41,6 +44,9 @@
   forceImage('.elementor-element[data-id="3935f1d"] img', COPC);
   forceImage('.elementor-element[data-id="b906cc5"] img', UB);
   forceImage('.elementor-element[data-id="5495d3c"] img', UOC);
+  forceImage('.elementor-element[data-id="559f9e3"] img', THERAPY_INDIVIDUAL);
+  forceImage('.elementor-element[data-id="b794155"] img', THERAPY_COUPLE);
+  forceImage('.elementor-element[data-id="04d75c5"] img', THERAPY_FAMILY);
 
   /* Self-contained mobile navigation. */
   const mobileToggle = document.querySelector('#ast-mobile-header .main-header-menu-toggle');
