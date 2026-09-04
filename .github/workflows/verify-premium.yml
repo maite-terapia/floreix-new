@@ -10,6 +10,7 @@ on:
       - 'assets/final-polish.css'
       - 'assets/navigation.css'
       - 'assets/premium.js'
+      - 'assets/modern-v3.css'
       - 'index.html'
       - 'about/index.html'
       - 'contact/index.html'
@@ -95,6 +96,7 @@ jobs:
                   inner:[...document.styleSheets].some(s=>String(s.href||'').includes('inner-pages.css')),
                   polish:[...document.styleSheets].some(s=>String(s.href||'').includes('final-polish.css')),
                   nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
+                  modern:[...document.styleSheets].some(s=>String(s.href||'').includes('modern-v3.css')),
                   heroExists:!!hero,
                   heroOverlayPseudo:!!(heroBefore?.content && heroBefore.content!=='none'),
                   heroOverlayElement:heroOverlay ? (getComputedStyle(heroOverlay).display!=='none' && parseFloat(getComputedStyle(heroOverlay).opacity||'1')>0.01) : false,
@@ -113,11 +115,14 @@ jobs:
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
-                  viewport:window.innerWidth
+                  viewport:window.innerWidth,
+                  aboutIntro:!!document.querySelector('.floreix-about-intro'),
+                  aboutPortrait:document.querySelector('.floreix-about-intro img')?.src||'',
+                  aboutSourceHidden:document.querySelector('.elementor-element[data-id="bcb05fa"]')?.classList.contains('floreix-source-hidden')??null
                 };
               });
 
-              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.polish||!info.nav) failures.push(`${name}-${mode}: visual layers missing`);
+              if(!info.premium||!info.css||!info.fixes||!info.inner||!info.polish||!info.nav||!info.modern) failures.push(`${name}-${mode}: visual layers missing`);
               if(heroPages.has(name)){
                 if(!info.heroExists) failures.push(`${name}-${mode}: hero missing`);
                 if(info.heroOverlayPseudo||info.heroOverlayElement) failures.push(`${name}-${mode}: hero overlay present`);
@@ -135,6 +140,11 @@ jobs:
               if((name==='home'||name==='es')&&mode==='desktop'&&info.copcLoaded===false) failures.push(`${name}: COPC logo did not load`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
+              if((name==='about'||name==='es-about')){
+                if(!info.aboutIntro) failures.push(`${name}-${mode}: modern About intro missing`);
+                if(!info.aboutPortrait.includes('maite-sobre-nosotros.webp')) failures.push(`${name}-${mode}: supplied About portrait missing`);
+                if(info.aboutSourceHidden!==true) failures.push(`${name}-${mode}: old About intro still visible`);
+              }
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
 
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
