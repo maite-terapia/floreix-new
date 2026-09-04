@@ -10,6 +10,7 @@ on:
       - 'assets/final-polish.css'
       - 'assets/navigation.css'
       - 'assets/premium.js'
+      - 'assets/modern-v3.css'
   workflow_dispatch:
 
 permissions:
@@ -74,21 +75,22 @@ jobs:
             html = html.replace(old, new)
             html = html.replace('Static visual replica of floreix.com', 'Premium Floreix concept')
 
-            for asset in ['premium.css','premium-fixes.css','inner-pages.css','final-polish.css','navigation.css']:
+            for asset in ['premium.css','premium-fixes.css','inner-pages.css','final-polish.css','navigation.css','modern-v3.css']:
               html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/' + re.escape(asset) + r'[^>]*>','',html)
             html = re.sub(r'<script src="[^"]*assets/premium\.js[^>]*></script>','',html)
             html = re.sub(r'<meta name="theme-color" content="#[0-9A-Fa-f]{6}">','',html)
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=11">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=11">'
-            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=11">'
-            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=11">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=11">'
-            js = f'<script src="{prefix}assets/premium.js?v=11" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=12">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=12">'
+            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=12">'
+            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=12">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=12">'
+            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=12">'
+            js = f'<script src="{prefix}assets/premium.js?v=12" defer></script>'
 
-            html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n</head>', 1)
+            html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
             path.write_text(html, encoding='utf-8')
 
