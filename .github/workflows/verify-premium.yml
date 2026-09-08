@@ -98,6 +98,9 @@ jobs:
                   nav:[...document.styleSheets].some(s=>String(s.href||'').includes('navigation.css')),
                   modern:[...document.styleSheets].some(s=>String(s.href||'').includes('modern-v3.css')),
                   heroExists:!!hero,
+                  headerWidth:document.querySelector('#masthead .ast-primary-header-bar')?.getBoundingClientRect().width||0,
+                  heroWidth:hero?.getBoundingClientRect().width||0,
+                  servicesWidth:document.querySelector('.elementor-element[data-id="7701125"]')?.getBoundingClientRect().width||0,
                   heroOverlayPseudo:!!(heroBefore?.content && heroBefore.content!=='none'),
                   heroOverlayElement:heroOverlay ? (getComputedStyle(heroOverlay).display!=='none' && parseFloat(getComputedStyle(heroOverlay).opacity||'1')>0.01) : false,
                   heroRadius:hero?parseFloat(getComputedStyle(hero).borderRadius):0,
@@ -119,6 +122,11 @@ jobs:
                   maiteSrc:maiteImg?.src||'',
                   credentialsCount:document.querySelector('.elementor-element[data-id="a5f07c6"] > .e-con-inner')?.children.length||0,
                   featfPresent:!!document.querySelector('.floreix-featf-credential'),
+                  featfLogoLoaded:(()=>{const i=document.querySelector('.floreix-featf-logo');return i?i.complete&&i.naturalWidth>0:null})(),
+                  kineLogoLoaded:(()=>{const i=document.querySelector('.floreix-kine-logo');return i?i.complete&&i.naturalWidth>0:null})(),
+                  spanishInicioTypo:[...document.querySelectorAll('header a')].some(a=>a.textContent.trim().toLowerCase()==='inicioo'),
+                  maitePanelRadius:(()=>{const e=document.querySelector('.elementor-element[data-id="7326ae8"]');return e?parseFloat(getComputedStyle(e).borderRadius):null})(),
+                  maitePhotoRadius:(()=>{const e=document.querySelector('.elementor-element[data-id="ec75349"] img');return e?parseFloat(getComputedStyle(e).borderRadius):null})(),
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
@@ -147,16 +155,21 @@ jobs:
               if((name==='home'||name==='es')&&info.serviceNumberVisible) failures.push(`${name}-${mode}: service numbers still visible`);
               if((name==='home'||name==='es')&&info.serviceTitleWidth&&info.serviceRowWidth&&Math.abs(info.serviceTitleWidth-info.serviceRowWidth)>4) failures.push(`${name}-${mode}: services title is not aligned with cards`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.maiteLoaded===false) failures.push(`${name}: Maite image did not load`);
-              if((name==='home'||name==='es')&&mode==='desktop'&&!info.maiteSrc.includes('maite-despacho.jpg')) failures.push(`${name}: office portrait missing from Maite section`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&!info.maiteSrc.includes('maite-despacho.webp')) failures.push(`${name}: office portrait missing from Maite section`);
               if((name==='home'||name==='es')&&mode==='desktop'&&(!info.featfPresent||info.credentialsCount<5)) failures.push(`${name}: credentials/FEATF block incomplete`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.copcLoaded===false) failures.push(`${name}: COPC logo did not load`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if((name==='about'||name==='es-about')){
                 if(!info.aboutIntro) failures.push(`${name}-${mode}: modern About intro missing`);
-                if(!info.aboutPortrait.includes('maite-despacho.jpg')) failures.push(`${name}-${mode}: supplied office portrait missing`);
+                if(!info.aboutPortrait.includes('maite-despacho.webp')) failures.push(`${name}-${mode}: supplied office portrait missing`);
                 if(info.aboutSourceHidden!==true) failures.push(`${name}-${mode}: old About intro still visible`);
               }
+              if(heroPages.has(name) && info.headerWidth && info.heroWidth && Math.abs(info.headerWidth-info.heroWidth)>4) failures.push(`${name}-${mode}: header and hero widths differ ${info.headerWidth} vs ${info.heroWidth}`);
+              if((name==='home'||name==='es') && info.servicesWidth && info.heroWidth && Math.abs(info.servicesWidth-info.heroWidth)>4) failures.push(`${name}-${mode}: home section width differs from hero`);
+              if(name.startsWith('es') && info.spanishInicioTypo) failures.push(`${name}-${mode}: Inicioo typo still visible`);
+              if((name==='home'||name==='es') && mode==='desktop' && (info.maitePanelRadius<20 || info.maitePhotoRadius<20)) failures.push(`${name}: Maite panel/photo corners are not rounded`);
+              if((name==='home'||name==='es') && mode==='desktop' && (info.featfLogoLoaded===false || info.kineLogoLoaded===false)) failures.push(`${name}: FEATF or KINE logo failed to load`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
 
               fs.appendFileSync('shots/report.txt',`${name} ${mode} ${JSON.stringify(info)}\n`);
