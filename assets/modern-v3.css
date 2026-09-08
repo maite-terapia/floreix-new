@@ -1041,7 +1041,7 @@ body.premium-site:not(.floreix-home) .premium-footer{
 
 
 /* === V5 polish: wider unified layout, logo integrity and rounded modules === */
-:root{--v5-shell:min(calc(100% - 48px),1400px)}
+:root{--v5-shell:min(calc(100vw - 48px),1400px)}
 
 body.premium-site #masthead,
 body.premium-site .site-header{
@@ -1283,13 +1283,13 @@ body.premium-site .elementor-section>.elementor-container{
 }
 
 @media(max-width:1100px){
-  :root{--v5-shell:min(calc(100% - 32px),1400px)}
+  :root{--v5-shell:min(calc(100vw - 32px),1400px)}
   body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
   }
 }
 @media(max-width:921px){
-  :root{--v5-shell:calc(100% - 20px)}
+  :root{--v5-shell:calc(100vw - 20px)}
   body.premium-site #masthead,
   body.premium-site .site-header{padding-top:8px!important}
   body.premium-site header .custom-logo-link{min-width:145px!important}
