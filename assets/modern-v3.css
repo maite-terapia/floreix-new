@@ -1361,3 +1361,63 @@ body.premium-site .elementor-element[data-id="7e3c9a4"].floreix-hero{
   margin-left:auto!important;
   margin-right:auto!important;
 }
+
+
+/* Final Maite home portrait cleanup: remove inherited nature background completely. */
+body.premium-site.floreix-home .elementor-element[data-id="5a72831"]{
+  background:none!important;
+  background-image:none!important;
+  background-color:transparent!important;
+  padding:0!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="5a72831"]>.elementor-widget-wrap{
+  width:100%!important;
+  height:100%!important;
+  padding:0!important;
+  margin:0!important;
+  background:none!important;
+  background-image:none!important;
+  border-radius:26px!important;
+  overflow:hidden!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="ec75349"]{
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  flex:1 1 100%!important;
+  align-self:stretch!important;
+  margin:0!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="ec75349"] .elementor-widget-container{
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  padding:0!important;
+  margin:0!important;
+  background:none!important;
+  overflow:hidden!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="ec75349"] img{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  min-height:520px!important;
+  max-height:620px!important;
+  margin:0!important;
+  object-fit:cover!important;
+  object-position:center 42%!important;
+  border-radius:26px!important;
+}
+@media(max-width:921px){
+  body.premium-site.floreix-home .elementor-element[data-id="ec75349"] img{
+    width:100%!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:4/5!important;
+    object-fit:cover!important;
+    object-position:center 38%!important;
+  }
+}
