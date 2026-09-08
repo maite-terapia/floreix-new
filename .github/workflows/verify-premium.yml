@@ -127,6 +127,9 @@ jobs:
                   spanishInicioTypo:[...document.querySelectorAll('header a')].some(a=>a.textContent.trim().toLowerCase()==='inicioo'),
                   maitePanelRadius:(()=>{const e=document.querySelector('.elementor-element[data-id="7326ae8"]');return e?parseFloat(getComputedStyle(e).borderRadius):null})(),
                   maitePhotoRadius:(()=>{const e=document.querySelector('.elementor-element[data-id="ec75349"] img');return e?parseFloat(getComputedStyle(e).borderRadius):null})(),
+                  maiteColumnBg:(()=>{const e=document.querySelector('.elementor-element[data-id="5a72831"]');return e?getComputedStyle(e).backgroundImage:null})(),
+                  maiteImageWidth:(()=>{const e=document.querySelector('.elementor-element[data-id="ec75349"] img');return e?e.getBoundingClientRect().width:null})(),
+                  maiteColumnWidth:(()=>{const e=document.querySelector('.elementor-element[data-id="5a72831"]');return e?e.getBoundingClientRect().width:null})(),
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
@@ -169,6 +172,8 @@ jobs:
               if((name==='home'||name==='es') && info.servicesWidth && info.heroWidth && Math.abs(info.servicesWidth-info.heroWidth)>4) failures.push(`${name}-${mode}: home section width differs from hero`);
               if(name.startsWith('es') && info.spanishInicioTypo) failures.push(`${name}-${mode}: Inicioo typo still visible`);
               if((name==='home'||name==='es') && mode==='desktop' && (info.maitePanelRadius<20 || info.maitePhotoRadius<20)) failures.push(`${name}: Maite panel/photo corners are not rounded`);
+              if((name==='home'||name==='es') && mode==='desktop' && info.maiteColumnBg && info.maiteColumnBg!=='none') failures.push(`${name}: legacy nature background still visible behind Maite portrait`);
+              if((name==='home'||name==='es') && mode==='desktop' && info.maiteImageWidth && info.maiteColumnWidth && Math.abs(info.maiteImageWidth-info.maiteColumnWidth)>4) failures.push(`${name}: Maite portrait does not fill its column`);
               if((name==='home'||name==='es') && mode==='desktop' && (info.featfLogoLoaded===false || info.kineLogoLoaded===false)) failures.push(`${name}: FEATF or KINE logo failed to load`);
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
 
