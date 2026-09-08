@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
@@ -105,13 +105,20 @@ jobs:
                   heroWrapBg:heroWrap?getComputedStyle(heroWrap).backgroundColor:'missing',
                   heroTextColor:heroTitle?getComputedStyle(heroTitle).color:'missing',
                   logoFilter:logo?getComputedStyle(logo).filter:'missing',
+                  headerLogo:logo?.src||'',
                   footer:!!footer,
                   footerDisplay:footer?getComputedStyle(footer).display:'missing',
                   footerLogo:footer?.querySelector('img')?.src||'',
                   serviceRadius:serviceImg?parseFloat(getComputedStyle(serviceImg).borderRadius):null,
                   serviceHeight:serviceImg?.getBoundingClientRect().height||null,
+                  serviceNumberVisible:document.querySelector('.floreix-service-card') ? getComputedStyle(document.querySelector('.floreix-service-card'),'::before').display!=='none' : false,
+                  serviceTitleWidth:document.querySelector('.elementor-element[data-id="13ae7bf"]')?.getBoundingClientRect().width||null,
+                  serviceRowWidth:document.querySelector('.elementor-element[data-id="ef970f2"]')?.getBoundingClientRect().width||null,
                   maiteLoaded:maiteImg ? (maiteImg.complete && maiteImg.naturalWidth>0) : null,
                   copcLoaded:copcImg ? (copcImg.complete && copcImg.naturalWidth>0) : null,
+                  maiteSrc:maiteImg?.src||'',
+                  credentialsCount:document.querySelector('.elementor-element[data-id="a5f07c6"] > .e-con-inner')?.children.length||0,
+                  featfPresent:!!document.querySelector('.floreix-featf-credential'),
                   desktopSubDisplay:desktopSub?getComputedStyle(desktopSub).display:'n/a',
                   mobileMenuDisplay:mobileContent?getComputedStyle(mobileContent).display:'n/a',
                   width:document.documentElement.scrollWidth,
@@ -131,18 +138,23 @@ jobs:
                 if(info.heroTextColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: hero title is not white (${info.heroTextColor})`);
                 if(mode==='desktop'&&info.heroHeight>525) failures.push(`${name}-${mode}: hero too tall (${info.heroHeight})`);
               }
-              if(info.logoFilter!=='missing'&&info.logoFilter!=='none') failures.push(`${name}-${mode}: original logo altered (${info.logoFilter})`);
+              if(info.logoFilter!=='missing'&&info.logoFilter!=='none') failures.push(`${name}-${mode}: logo altered (${info.logoFilter})`);
+              if(info.headerLogo && !info.headerLogo.includes('logo-floreix-nou.png')) failures.push(`${name}-${mode}: new header logo missing`);
               if(!info.footer||info.footerDisplay==='none') failures.push(`${name}-${mode}: footer missing`);
-              if(!info.footerLogo.includes('Logo_retallat')) failures.push(`${name}-${mode}: footer original logo missing`);
+              if(!info.footerLogo.includes('logo-floreix-nou.png')) failures.push(`${name}-${mode}: new footer logo missing`);
               if(info.serviceRadius!==null&&info.serviceRadius<16) failures.push(`${name}-${mode}: service photo not rounded`);
               if(mode==='desktop'&&info.serviceHeight&&info.serviceHeight>380) failures.push(`${name}-${mode}: service photo too tall (${info.serviceHeight})`);
+              if((name==='home'||name==='es')&&info.serviceNumberVisible) failures.push(`${name}-${mode}: service numbers still visible`);
+              if((name==='home'||name==='es')&&info.serviceTitleWidth&&info.serviceRowWidth&&Math.abs(info.serviceTitleWidth-info.serviceRowWidth)>4) failures.push(`${name}-${mode}: services title is not aligned with cards`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.maiteLoaded===false) failures.push(`${name}: Maite image did not load`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&!info.maiteSrc.includes('maite-despacho.jpg')) failures.push(`${name}: office portrait missing from Maite section`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&(!info.featfPresent||info.credentialsCount<5)) failures.push(`${name}: credentials/FEATF block incomplete`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.copcLoaded===false) failures.push(`${name}: COPC logo did not load`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if((name==='about'||name==='es-about')){
                 if(!info.aboutIntro) failures.push(`${name}-${mode}: modern About intro missing`);
-                if(!info.aboutPortrait.includes('maite-sobre-nosotros.webp')) failures.push(`${name}-${mode}: supplied About portrait missing`);
+                if(!info.aboutPortrait.includes('maite-despacho.jpg')) failures.push(`${name}-${mode}: supplied office portrait missing`);
                 if(info.aboutSourceHidden!==true) failures.push(`${name}-${mode}: old About intro still visible`);
               }
               if(info.width>info.viewport+2) failures.push(`${name}-${mode}: horizontal overflow ${info.width}>${info.viewport}`);
