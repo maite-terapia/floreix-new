@@ -110,6 +110,10 @@ jobs:
                   heroTextColor:heroTitle?getComputedStyle(heroTitle).color:'missing',
                   logoFilter:logo?getComputedStyle(logo).filter:'missing',
                   headerLogo:logo?.src||'',
+                  desktopLogoLoaded:(()=>{const i=document.querySelector('#ast-desktop-header .custom-logo');return i?i.complete&&i.naturalWidth>0:false})(),
+                  mobileLogoLoaded:(()=>{const i=document.querySelector('#ast-mobile-header .custom-logo');return i?i.complete&&i.naturalWidth>0:false})(),
+                  desktopLogoSrc:document.querySelector('#ast-desktop-header .custom-logo')?.src||'',
+                  mobileLogoSrc:document.querySelector('#ast-mobile-header .custom-logo')?.src||'',
                   footer:!!footer,
                   footerDisplay:footer?getComputedStyle(footer).display:'missing',
                   footerLogo:footer?.querySelector('img')?.src||'',
@@ -157,6 +161,8 @@ jobs:
               if(info.logoFilter!=='missing'&&info.logoFilter!=='none') failures.push(`${name}-${mode}: logo altered (${info.logoFilter})`);
               if(!info.whatsappPresent) failures.push(`${name}-${mode}: WhatsApp button missing or wrong number`);
               if(info.headerLogo && !info.headerLogo.includes('logo-floreix-clean.png')) failures.push(`${name}-${mode}: new header logo missing`);
+              if(!info.desktopLogoLoaded || !info.desktopLogoSrc.includes('logo-floreix-clean.png')) failures.push(`${name}-${mode}: desktop Floreix PNG missing or failed to load`);
+              if(!info.mobileLogoLoaded || !info.mobileLogoSrc.includes('logo-floreix-clean.png')) failures.push(`${name}-${mode}: mobile Floreix PNG missing or failed to load`);
               if(!info.footer||info.footerDisplay==='none') failures.push(`${name}-${mode}: footer missing`);
               if(!info.footerLogo.includes('logo-floreix-clean.png')) failures.push(`${name}-${mode}: new footer logo missing`);
               if(info.serviceRadius!==null&&info.serviceRadius<16) failures.push(`${name}-${mode}: service photo not rounded`);
