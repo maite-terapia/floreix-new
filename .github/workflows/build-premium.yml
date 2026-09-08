@@ -119,7 +119,7 @@ jobs:
             inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=23">'
             polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=23">'
             navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=23">'
-            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=23">'
+            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=26">'
             js = f'<script src="{prefix}assets/premium.js?v=25" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
