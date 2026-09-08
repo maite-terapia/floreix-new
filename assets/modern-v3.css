@@ -1434,3 +1434,205 @@ body.premium-site.floreix-home .elementor-element[data-id="bf1e175"] .elementor-
   background:none!important;
   background-color:transparent!important;
 }
+
+
+/* === V6 final cross-device polish === */
+
+/* Clean supplied Floreix logo: preserve full artwork at every breakpoint. */
+body.premium-site header .site-logo-img,
+body.premium-site header .custom-logo-link{
+  overflow:visible!important;
+}
+body.premium-site header .custom-logo-link img{
+  width:176px!important;
+  max-width:176px!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  border-radius:0!important;
+  image-rendering:auto!important;
+}
+body.premium-site .premium-footer-brand img{
+  width:168px!important;
+  max-width:168px!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  border-radius:0!important;
+  image-rendering:auto!important;
+}
+
+/* Testimonial: guarantee high contrast on the dark green panel. */
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"],
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"] *,
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"] .elementor-widget-text-editor,
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"] .elementor-widget-text-editor *,
+body.premium-site.floreix-home .elementor-element[data-id="d278a40"],
+body.premium-site.floreix-home .elementor-element[data-id="d278a40"] *{
+  color:#fff!important;
+  text-shadow:none!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"] p,
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"] span{
+  color:rgba(255,255,255,.88)!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="d278a40"] p{
+  color:#fff!important;
+  opacity:1!important;
+}
+
+/* Desktop image + copy balance: no clipped text and a deliberate two-column composition. */
+@media(min-width:1101px){
+  body.premium-site.floreix-home .elementor-element[data-id="bf1e175"]>.elementor-container{
+    grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr)!important;
+    gap:18px!important;
+    align-items:stretch!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="7326ae8"],
+  body.premium-site.floreix-home .elementor-element[data-id="5a72831"]{
+    min-width:0!important;
+    width:auto!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="7326ae8"]>.elementor-widget-wrap{
+    min-height:560px!important;
+    height:100%!important;
+    padding:clamp(42px,4.2vw,68px)!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] .elementor-widget,
+  body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] .elementor-widget-container{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] p{
+    max-width:660px!important;
+    overflow-wrap:break-word!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="ec75349"],
+  body.premium-site.floreix-home .elementor-element[data-id="ec75349"] .elementor-widget-container{
+    height:100%!important;
+    min-height:560px!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="ec75349"] img{
+    height:100%!important;
+    min-height:560px!important;
+    max-height:620px!important;
+    object-fit:cover!important;
+    object-position:center 38%!important;
+  }
+
+  body.premium-site .floreix-about-intro{
+    grid-template-columns:minmax(420px,.94fr) minmax(0,1.06fr)!important;
+    align-items:stretch!important;
+  }
+  body.premium-site .floreix-about-photo,
+  body.premium-site .floreix-about-copy{
+    min-width:0!important;
+    min-height:610px!important;
+  }
+  body.premium-site .floreix-about-copy{
+    padding:clamp(44px,4.5vw,72px)!important;
+  }
+  body.premium-site .floreix-about-copy p{
+    max-width:720px!important;
+  }
+}
+
+/* Credentials are a visual logo strip, not explanatory cards. */
+body.premium-site .floreix-extra-credential{
+  min-height:104px!important;
+  padding:16px!important;
+  gap:0!important;
+}
+body.premium-site .floreix-extra-credential strong,
+body.premium-site .floreix-extra-credential span,
+body.premium-site .floreix-extra-credential small{
+  display:none!important;
+}
+body.premium-site .floreix-credential-logo{
+  width:auto!important;
+  max-width:90%!important;
+  height:auto!important;
+  max-height:66px!important;
+  margin:auto!important;
+}
+body.premium-site .floreix-kine-logo{max-height:70px!important}
+body.premium-site .floreix-featf-logo{max-height:58px!important}
+
+/* Floating WhatsApp action on every route. */
+body.premium-site .floreix-whatsapp{
+  position:fixed!important;
+  right:22px!important;
+  bottom:max(22px,env(safe-area-inset-bottom))!important;
+  z-index:1400!important;
+  width:58px!important;
+  height:58px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:#25D366!important;
+  box-shadow:0 12px 30px rgba(18,55,40,.22)!important;
+  text-decoration:none!important;
+  transition:transform .2s ease,box-shadow .2s ease!important;
+}
+body.premium-site .floreix-whatsapp:hover{
+  transform:translateY(-3px) scale(1.03)!important;
+  box-shadow:0 16px 34px rgba(18,55,40,.28)!important;
+}
+body.premium-site .floreix-whatsapp svg{
+  width:31px!important;
+  height:31px!important;
+  display:block!important;
+  fill:#fff!important;
+}
+
+@media(max-width:921px){
+  body.premium-site header .custom-logo-link img{
+    width:154px!important;
+    max-width:154px!important;
+  }
+  body.premium-site .premium-footer-brand img{
+    width:156px!important;
+    max-width:156px!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"]{
+    padding:46px 24px!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="d278a40"] p{
+    font-size:clamp(27px,7.8vw,38px)!important;
+    line-height:1.12!important;
+  }
+  body.premium-site .floreix-whatsapp{
+    right:16px!important;
+    bottom:max(18px,env(safe-area-inset-bottom))!important;
+    width:54px!important;
+    height:54px!important;
+  }
+  body.premium-site .floreix-whatsapp svg{
+    width:29px!important;
+    height:29px!important;
+  }
+  body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  body.premium-site .floreix-extra-credential{
+    min-height:96px!important;
+  }
+}
+
+@media(max-width:520px){
+  body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+  body.premium-site .elementor-element[data-id="a5f07c6"] .elementor-widget-image,
+  body.premium-site .floreix-extra-credential{
+    min-height:90px!important;
+    padding:12px!important;
+  }
+}
