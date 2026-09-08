@@ -103,7 +103,7 @@
   }
 
   /* About page: use the portrait supplied by the client beside the existing introduction text. */
-  if (body.classList.contains('floreix-about')) {
+  if (body.classList.contains('floreix-about') || (document.querySelector('.elementor-element[data-id="bcb05fa"]') && document.querySelector('.elementor-element[data-id="855140f"]'))) {
     const oldIntro = document.querySelector('.elementor-element[data-id="bcb05fa"]');
     const introWidget = oldIntro?.querySelector('.elementor-element[data-id="5bf1d4d"] .elementor-widget-container');
     const oldPortrait = document.querySelector('.elementor-element[data-id="fe1a261"]');
