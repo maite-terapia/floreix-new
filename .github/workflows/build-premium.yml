@@ -12,7 +12,7 @@ on:
       - 'assets/premium.js'
       - 'assets/modern-v3.css'
       - 'assets/logo-floreix-nou.png'
-      - 'assets/logo-floreix-clean.png'
+      - 'assets/logo-floreix-final.png'
       - 'assets/maite-despacho.jpg'
       - 'assets/maite-despacho.webp'
       - 'assets/maite-sobre-nosotros.webp'
@@ -100,7 +100,7 @@ jobs:
             # Bake the supplied Floreix PNG directly into both desktop and mobile headers.
             def replace_logo_tag(match):
               tag = match.group(0)
-              tag = re.sub(r'\bsrc="[^"]*"', f'src="{prefix}assets/logo-floreix-clean.png"', tag, count=1)
+              tag = re.sub(r'\bsrc="[^"]*"', f'src="{prefix}assets/logo-floreix-final.png"', tag, count=1)
               tag = re.sub(r'\s+srcset="[^"]*"', '', tag)
               tag = re.sub(r'\s+sizes="[^"]*"', '', tag)
               tag = re.sub(r'\bwidth="[^"]*"', 'width="420"', tag)
@@ -120,7 +120,7 @@ jobs:
             polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=23">'
             navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=23">'
             modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=23">'
-            js = f'<script src="{prefix}assets/premium.js?v=23" defer></script>'
+            js = f'<script src="{prefix}assets/premium.js?v=24" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
