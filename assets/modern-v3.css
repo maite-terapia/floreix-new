@@ -1038,3 +1038,289 @@ body.premium-site:not(.floreix-home) .premium-footer{
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* === V5 polish: wider unified layout, logo integrity and rounded modules === */
+:root{--v5-shell:min(calc(100% - 48px),1400px)}
+
+body.premium-site #masthead,
+body.premium-site .site-header{
+  padding:10px 0 0!important;
+}
+body.premium-site #masthead .ast-primary-header-bar,
+body.premium-site .floreix-hero,
+body.premium-site .elementor>.elementor-section:not(.floreix-hero),
+body.premium-site .entry-content>.elementor>.elementor-section:not(.floreix-hero),
+body.premium-site.floreix-home .elementor-element[data-id="7701125"],
+body.premium-site.floreix-home .elementor-element[data-id="bf1e175"],
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"],
+body.premium-site.floreix-home .elementor-element[data-id="b991a90"],
+body.premium-site .elementor-element[data-id="a5f07c6"],
+body.premium-site .floreix-about-intro,
+body.premium-site.floreix-about .elementor-element[data-id="855140f"],
+body.premium-site.floreix-about .elementor-element[data-id="762d59d"],
+body.premium-site.floreix-psychotherapy .elementor>.elementor-section:not(.floreix-hero),
+body.premium-site.floreix-nature .elementor>.elementor-section:not(.floreix-hero),
+body.premium-site.floreix-method .entry-content>.elementor>.elementor-section:not(.floreix-hero),
+body.premium-site.floreix-contact .entry-content>.elementor>.elementor-section:not(.floreix-hero),
+body.premium-site #colophon,
+body.premium-site .premium-footer{
+  width:var(--v5-shell)!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* The logo image must never be clipped by Astra's old logo dimensions. */
+body.premium-site header .site-logo-img,
+body.premium-site header .custom-logo-link,
+body.premium-site header .ast-site-identity,
+body.premium-site header .site-branding,
+body.premium-site .premium-footer-brand{
+  width:auto!important;
+  max-width:none!important;
+  overflow:visible!important;
+}
+body.premium-site header .custom-logo-link{
+  display:flex!important;
+  align-items:center!important;
+  min-width:190px!important;
+}
+body.premium-site header .custom-logo-link img{
+  display:block!important;
+  width:176px!important;
+  max-width:176px!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  overflow:visible!important;
+}
+body.premium-site .premium-footer-brand img{
+  display:block!important;
+  width:168px!important;
+  max-width:168px!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+}
+
+/* Services: exact same grid width as heading, with faces anchored to the top. */
+body.premium-site.floreix-home .elementor-element[data-id="7701125"]{
+  margin-top:70px!important;
+  margin-bottom:70px!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="13ae7bf"],
+body.premium-site.floreix-home .elementor-element[data-id="13ae7bf"] .elementor-widget-container,
+body.premium-site.floreix-home .elementor-element[data-id="13ae7bf"] h2,
+body.premium-site.floreix-home .elementor-element[data-id="ef970f2"],
+body.premium-site.floreix-home .elementor-element[data-id="ef970f2"]>.elementor-container{
+  width:100%!important;
+  max-width:none!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="13ae7bf"] h2{
+  margin:0 0 34px!important;
+}
+body.premium-site.floreix-home .floreix-service-card::before{
+  display:none!important;
+  content:none!important;
+}
+body.premium-site.floreix-home .floreix-service-card .elementor-widget-image,
+body.premium-site.floreix-home .floreix-service-card .elementor-widget-image .elementor-widget-container{
+  overflow:hidden!important;
+  border-radius:22px!important;
+}
+body.premium-site.floreix-home .floreix-service-card .elementor-widget-image img{
+  width:100%!important;
+  height:330px!important;
+  max-height:330px!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  border-radius:22px!important;
+}
+
+/* Maite home module: both panels are deliberately rounded, with a visible gap. */
+body.premium-site.floreix-home .elementor-element[data-id="bf1e175"]{
+  padding:14px!important;
+  border-radius:34px!important;
+  overflow:hidden!important;
+  background:var(--v3-mint)!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="bf1e175"]>.elementor-container{
+  grid-template-columns:1fr 1fr!important;
+  gap:14px!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"]{
+  background:var(--v3-green)!important;
+  border-radius:26px!important;
+  overflow:hidden!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"]>.elementor-widget-wrap{
+  background:transparent!important;
+  border-radius:26px!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] h2,
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] h3,
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] p,
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] strong{
+  color:#fff!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] p{
+  color:rgba(255,255,255,.82)!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="7326ae8"] .elementor-button{
+  background:#fff!important;
+  color:var(--v3-green)!important;
+  border-color:#fff!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="5a72831"],
+body.premium-site.floreix-home .elementor-element[data-id="ec75349"],
+body.premium-site.floreix-home .elementor-element[data-id="ec75349"] .elementor-widget-container{
+  border-radius:26px!important;
+  overflow:hidden!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="ec75349"] img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:520px!important;
+  max-height:620px!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  border-radius:26px!important;
+}
+
+/* About: wider two-column layout and rounded portrait/copy panels. */
+body.premium-site .floreix-about-intro{
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important;
+  gap:18px!important;
+  margin-top:64px!important;
+  margin-bottom:64px!important;
+}
+body.premium-site .floreix-about-photo,
+body.premium-site .floreix-about-copy,
+body.premium-site .floreix-about-photo img{
+  border-radius:30px!important;
+}
+body.premium-site .floreix-about-photo{
+  overflow:hidden!important;
+  background:var(--v3-rose)!important;
+}
+body.premium-site .floreix-about-photo img{
+  display:block!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+}
+
+/* Credentials: real institutional logos plus compact, balanced end-of-page rhythm. */
+body.premium-site .elementor-element[data-id="a5f07c6"]{
+  margin-top:20px!important;
+  margin-bottom:26px!important;
+  padding:24px!important;
+}
+body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+body.premium-site .floreix-extra-credential{
+  min-height:118px!important;
+  padding:12px 14px!important;
+  background:#fff!important;
+  border:1px solid var(--v3-line)!important;
+  border-radius:18px!important;
+  justify-content:center!important;
+}
+body.premium-site .floreix-extra-credential:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 12px 30px rgba(24,55,46,.07)!important;
+}
+body.premium-site .floreix-credential-logo{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:54px!important;
+  margin:0 auto 7px!important;
+  border-radius:0!important;
+  object-fit:contain!important;
+}
+body.premium-site .floreix-kine-logo{
+  max-height:66px!important;
+}
+body.premium-site .floreix-featf-logo{
+  max-height:48px!important;
+}
+body.premium-site .floreix-extra-credential strong{
+  font-size:13px!important;
+}
+body.premium-site .floreix-extra-credential span{
+  font-size:10px!important;
+}
+body.premium-site .floreix-extra-credential small{
+  font-size:9px!important;
+}
+
+/* Compress the closing sequence without making it cramped. */
+body.premium-site.floreix-home .elementor-element[data-id="2d8ba58"]{
+  margin-top:64px!important;
+  margin-bottom:30px!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="b991a90"]{
+  margin-top:30px!important;
+  margin-bottom:18px!important;
+}
+body.premium-site #colophon,
+body.premium-site .premium-footer{
+  margin-top:26px!important;
+  margin-bottom:12px!important;
+}
+
+/* Keep horizontal alignment identical on all major page sections. */
+body.premium-site .floreix-hero>.elementor-container,
+body.premium-site .elementor-section>.elementor-container{
+  width:100%!important;
+  max-width:none!important;
+}
+
+@media(max-width:1100px){
+  :root{--v5-shell:min(calc(100% - 32px),1400px)}
+  body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:921px){
+  :root{--v5-shell:calc(100% - 20px)}
+  body.premium-site #masthead,
+  body.premium-site .site-header{padding-top:8px!important}
+  body.premium-site header .custom-logo-link{min-width:145px!important}
+  body.premium-site header .custom-logo-link img{
+    width:140px!important;
+    max-width:140px!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="bf1e175"]>.elementor-container{
+    grid-template-columns:1fr!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="ec75349"] img{
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+    aspect-ratio:4/5!important;
+  }
+  body.premium-site .floreix-about-intro{
+    grid-template-columns:1fr!important;
+    width:var(--v5-shell)!important;
+  }
+  body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:600px){
+  body.premium-site.floreix-home .floreix-service-card .elementor-widget-image img{
+    height:300px!important;
+    max-height:300px!important;
+    object-position:center top!important;
+  }
+  body.premium-site .elementor-element[data-id="a5f07c6"]>.e-con-inner{
+    grid-template-columns:1fr!important;
+  }
+}
