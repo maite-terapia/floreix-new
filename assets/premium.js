@@ -4,14 +4,16 @@
 
   const BASE = 'https://maite-terapia.github.io/floreix-new/';
   const ORIGINAL_LOGO = BASE + 'assets/logo-floreix-nou.png';
-  const MAITE_HOME = BASE + 'assets/maite-despacho.jpg';
+  const MAITE_HOME = BASE + 'assets/maite-despacho.webp';
   const COPC = 'https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10-1024x301.png';
   const UB = 'https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png';
   const UOC = 'https://floreix.com/wp-content/uploads/2024/02/uoc_masterbrand_2linies_posititiu.jpg';
   const THERAPY_INDIVIDUAL = 'https://floreix.com/wp-content/uploads/2026/03/Terapia-individual-ros.webp';
   const THERAPY_COUPLE = 'https://floreix.com/wp-content/uploads/2026/03/ChatGPT-Image-Mar-11-2026-12_54_39-PM.webp';
   const THERAPY_FAMILY = 'https://floreix.com/wp-content/uploads/2026/03/Sesion-de-terapia-familiar-sonriente.webp';
-  const MAITE_ABOUT = BASE + 'assets/maite-despacho.jpg';
+  const MAITE_ABOUT = BASE + 'assets/maite-despacho.webp';
+  const FEATF_LOGO = BASE + 'assets/logo-featf.jpg';
+  const KINE_LOGO = BASE + 'assets/logo-kine.jpg';
 
   const rawPath = location.pathname.replace(/^\/floreix-new/, '') || '/';
   const isSpanish = document.documentElement.lang.toLowerCase().startsWith('es') || rawPath.startsWith('/es/');
@@ -27,6 +29,13 @@
     ['floreix-legal', normalizedPath === '/privacy-policy' || normalizedPath === '/es/terminos-y-condiciones']
   ];
   routeClasses.forEach(([name, active]) => active && body.classList.add(name));
+
+  /* Correct legacy Spanish navigation typo in both desktop and mobile menus. */
+  if (isSpanish) {
+    document.querySelectorAll('header a, #ast-mobile-header a').forEach(link => {
+      if (link.textContent.trim().toLowerCase() === 'inicioo') link.textContent = 'Inicio';
+    });
+  }
 
   const onScroll = () => body.classList.toggle('premium-scrolled', window.scrollY > 36);
   onScroll();
@@ -87,16 +96,25 @@
 
     const credentials = document.querySelector('.elementor-element[data-id="a5f07c6"] > .e-con-inner');
     if (credentials && !credentials.querySelector('.floreix-extra-credential')) {
-      const degree = document.createElement('div');
+      const degree = document.createElement('a');
       degree.className = 'floreix-extra-credential floreix-degree-credential';
-      degree.innerHTML = '<strong>' + (isSpanish ? 'Máster en Terapia Familiar' : 'Màster en Teràpia Familiar') + '</strong><span>' + (isSpanish ? 'Formación especializada' : 'Formació especialitzada') + '</span>';
+      degree.href = 'https://www.kine.org/';
+      degree.target = '_blank';
+      degree.rel = 'noopener noreferrer';
+      degree.innerHTML =
+        '<img class="floreix-credential-logo floreix-kine-logo" src="' + KINE_LOGO + '" alt="KINE - Centro de Terapia Familiar y de Pareja">' +
+        '<strong>' + (isSpanish ? 'Máster en Terapia Familiar' : 'Màster en Teràpia Familiar') + '</strong>' +
+        '<span>KINE · Centro de Terapia Familiar y de Pareja</span>';
 
       const featf = document.createElement('a');
       featf.className = 'floreix-extra-credential floreix-featf-credential';
       featf.href = 'https://www.featf.org/';
       featf.target = '_blank';
       featf.rel = 'noopener noreferrer';
-      featf.innerHTML = '<strong class="floreix-featf-word">FEATF</strong><span>Federación Española de Asociaciones de Terapia Familiar</span><small>' + (isSpanish ? 'Solicitud de incorporación' : 'Sol·licitud d\'incorporació') + '</small>';
+      featf.innerHTML =
+        '<img class="floreix-credential-logo floreix-featf-logo" src="' + FEATF_LOGO + '" alt="FEATF - Federación Española de Asociaciones de Terapia Familiar">' +
+        '<span>Federación Española de Asociaciones de Terapia Familiar</span>' +
+        '<small>' + (isSpanish ? 'Solicitud de incorporación' : 'Sol·licitud d\'incorporació') + '</small>';
 
       credentials.append(degree, featf);
     }
