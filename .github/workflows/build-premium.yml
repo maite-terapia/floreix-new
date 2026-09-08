@@ -14,6 +14,7 @@ on:
       - 'assets/logo-floreix-nou.png'
       - 'assets/maite-despacho.jpg'
       - 'assets/maite-despacho.webp'
+      - 'assets/maite-sobre-nosotros.webp'
       - 'assets/logo-featf.jpg'
       - 'assets/logo-kine.jpg'
   workflow_dispatch:
@@ -94,13 +95,13 @@ jobs:
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=16">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=16">'
-            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=16">'
-            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=16">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=16">'
-            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=16">'
-            js = f'<script src="{prefix}assets/premium.js?v=16" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=17">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=17">'
+            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=17">'
+            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=17">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=17">'
+            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=17">'
+            js = f'<script src="{prefix}assets/premium.js?v=17" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
