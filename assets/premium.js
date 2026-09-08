@@ -4,7 +4,7 @@
 
   const BASE = 'https://maite-terapia.github.io/floreix-new/';
   const ASSET_BASE = ['127.0.0.1','localhost'].includes(location.hostname) ? '/' : BASE;
-  const ORIGINAL_LOGO = ASSET_BASE + 'assets/logo-floreix-nou.png';
+  const ORIGINAL_LOGO = ASSET_BASE + 'assets/logo-floreix-clean.png';
   const MAITE_HOME = ASSET_BASE + 'assets/maite-sobre-nosotros.webp';
   const COPC = 'https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10-1024x301.png';
   const UB = 'https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png';
@@ -102,20 +102,20 @@
       degree.href = 'https://www.kine.org/';
       degree.target = '_blank';
       degree.rel = 'noopener noreferrer';
+      degree.title = isSpanish ? 'Máster en Terapia Familiar · KINE' : 'Màster en Teràpia Familiar · KINE';
+      degree.setAttribute('aria-label', degree.title);
       degree.innerHTML =
-        '<img class="floreix-credential-logo floreix-kine-logo" src="' + KINE_LOGO + '" alt="KINE - Centro de Terapia Familiar y de Pareja">' +
-        '<strong>' + (isSpanish ? 'Máster en Terapia Familiar' : 'Màster en Teràpia Familiar') + '</strong>' +
-        '<span>KINE · Centro de Terapia Familiar y de Pareja</span>';
+        '<img class="floreix-credential-logo floreix-kine-logo" src="' + KINE_LOGO + '" alt="KINE - Centro de Terapia Familiar y de Pareja">';
 
       const featf = document.createElement('a');
       featf.className = 'floreix-extra-credential floreix-featf-credential';
       featf.href = 'https://www.featf.org/';
       featf.target = '_blank';
       featf.rel = 'noopener noreferrer';
+      featf.title = isSpanish ? 'FEATF · Solicitud de incorporación' : 'FEATF · Sol·licitud d\'incorporació';
+      featf.setAttribute('aria-label', featf.title);
       featf.innerHTML =
-        '<img class="floreix-credential-logo floreix-featf-logo" src="' + FEATF_LOGO + '" alt="FEATF - Federación Española de Asociaciones de Terapia Familiar">' +
-        '<span>Federación Española de Asociaciones de Terapia Familiar</span>' +
-        '<small>' + (isSpanish ? 'Solicitud de incorporación' : 'Sol·licitud d\'incorporació') + '</small>';
+        '<img class="floreix-credential-logo floreix-featf-logo" src="' + FEATF_LOGO + '" alt="FEATF - Federación Española de Asociaciones de Terapia Familiar">';
 
       credentials.append(degree, featf);
     }
@@ -233,6 +233,23 @@
         <span>© ${new Date().getFullYear()} Floreix</span>
       </div>
     </div>`;
+
+
+  /* Floating WhatsApp contact on every route. */
+  if (!document.querySelector('.floreix-whatsapp')) {
+    const whatsapp = document.createElement('a');
+    whatsapp.className = 'floreix-whatsapp';
+    whatsapp.href = 'https://wa.me/34689056569';
+    whatsapp.target = '_blank';
+    whatsapp.rel = 'noopener noreferrer';
+    whatsapp.setAttribute('aria-label', isSpanish ? 'Contactar por WhatsApp' : 'Contactar per WhatsApp');
+    whatsapp.title = isSpanish ? 'Contactar por WhatsApp' : 'Contactar per WhatsApp';
+    whatsapp.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 3.2a8.6 8.6 0 0 0-7.35 13.08L3.5 20.5l4.33-1.13A8.6 8.6 0 1 0 12 3.2Zm0 15.6a7 7 0 0 1-3.57-.98l-.25-.15-2.57.67.69-2.5-.17-.26A7 7 0 1 1 12 18.8Zm3.84-5.23c-.21-.1-1.24-.61-1.43-.68-.19-.07-.33-.1-.47.1-.14.21-.54.68-.66.82-.12.14-.24.16-.45.05-.21-.1-.88-.32-1.67-1.03-.62-.55-1.04-1.23-1.16-1.44-.12-.21-.01-.32.09-.42.09-.09.21-.24.31-.36.1-.12.14-.21.21-.35.07-.14.04-.26-.02-.36-.05-.1-.47-1.13-.64-1.55-.17-.4-.34-.35-.47-.36h-.4c-.14 0-.36.05-.55.26-.19.21-.72.7-.72 1.71 0 1 .74 1.98.84 2.12.1.14 1.45 2.22 3.51 3.11.49.21.87.34 1.17.43.49.16.94.13 1.29.08.39-.06 1.24-.51 1.41-1 .17-.49.17-.91.12-1-.05-.09-.19-.14-.4-.24Z"/>
+      </svg>`;
+    document.body.appendChild(whatsapp);
+  }
 
   /* Smooth in-page navigation only for real targets. */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
