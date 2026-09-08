@@ -94,13 +94,13 @@ jobs:
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=15">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=15">'
-            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=15">'
-            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=15">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=15">'
-            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=15">'
-            js = f'<script src="{prefix}assets/premium.js?v=15" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=16">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=16">'
+            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=16">'
+            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=16">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=16">'
+            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=16">'
+            js = f'<script src="{prefix}assets/premium.js?v=16" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
