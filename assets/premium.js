@@ -4,7 +4,7 @@
 
   const BASE = 'https://maite-terapia.github.io/floreix-new/';
   const ASSET_BASE = ['127.0.0.1','localhost'].includes(location.hostname) ? '/' : BASE;
-  const ORIGINAL_LOGO = ASSET_BASE + 'assets/logo-floreix-final.png';
+  const ORIGINAL_LOGO = ASSET_BASE + 'assets/logo-floreix-nou-v2.png';
   const MAITE_HOME = ASSET_BASE + 'assets/maite-sobre-nosotros.webp';
   const COPC = 'https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10-1024x301.png';
   const UB = 'https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png';
