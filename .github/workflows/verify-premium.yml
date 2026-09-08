@@ -155,14 +155,14 @@ jobs:
               if((name==='home'||name==='es')&&info.serviceNumberVisible) failures.push(`${name}-${mode}: service numbers still visible`);
               if((name==='home'||name==='es')&&info.serviceTitleWidth&&info.serviceRowWidth&&Math.abs(info.serviceTitleWidth-info.serviceRowWidth)>4) failures.push(`${name}-${mode}: services title is not aligned with cards`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.maiteLoaded===false) failures.push(`${name}: Maite image did not load`);
-              if((name==='home'||name==='es')&&mode==='desktop'&&!info.maiteSrc.includes('maite-despacho.webp')) failures.push(`${name}: office portrait missing from Maite section`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&!info.maiteSrc.includes('maite-sobre-nosotros.webp')) failures.push(`${name}: office portrait missing from Maite section`);
               if((name==='home'||name==='es')&&mode==='desktop'&&(!info.featfPresent||info.credentialsCount<5)) failures.push(`${name}: credentials/FEATF block incomplete`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.copcLoaded===false) failures.push(`${name}: COPC logo did not load`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
               if((name==='about'||name==='es-about')){
                 if(!info.aboutIntro) failures.push(`${name}-${mode}: modern About intro missing`);
-                if(!info.aboutPortrait.includes('maite-despacho.webp')) failures.push(`${name}-${mode}: supplied office portrait missing`);
+                if(!info.aboutPortrait.includes('maite-sobre-nosotros.webp')) failures.push(`${name}-${mode}: supplied office portrait missing`);
                 if(info.aboutSourceHidden!==true) failures.push(`${name}-${mode}: old About intro still visible`);
               }
               if(heroPages.has(name) && info.headerWidth && info.heroWidth && Math.abs(info.headerWidth-info.heroWidth)>4) failures.push(`${name}-${mode}: header and hero widths differ ${info.headerWidth} vs ${info.heroWidth}`);
