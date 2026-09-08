@@ -1636,3 +1636,34 @@ body.premium-site .floreix-whatsapp svg{
     padding:12px!important;
   }
 }
+
+
+/* V7: harden the supplied Floreix logo in both desktop and mobile headers. */
+body.premium-site header .custom-logo-link,
+body.premium-site header .site-logo-img{
+  display:flex!important;
+  align-items:center!important;
+  overflow:visible!important;
+}
+body.premium-site header img.custom-logo,
+body.premium-site header .custom-logo-link img{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  flex:none!important;
+  width:176px!important;
+  max-width:176px!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  border-radius:0!important;
+  filter:none!important;
+}
+@media(max-width:921px){
+  body.premium-site header img.custom-logo,
+  body.premium-site header .custom-logo-link img{
+    width:154px!important;
+    max-width:154px!important;
+  }
+}
