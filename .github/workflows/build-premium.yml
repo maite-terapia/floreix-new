@@ -12,6 +12,7 @@ on:
       - 'assets/premium.js'
       - 'assets/modern-v3.css'
       - 'assets/logo-floreix-nou.png'
+      - 'assets/logo-floreix-clean.png'
       - 'assets/maite-despacho.jpg'
       - 'assets/maite-despacho.webp'
       - 'assets/maite-sobre-nosotros.webp'
@@ -95,13 +96,13 @@ jobs:
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=20">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=20">'
-            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=20">'
-            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=20">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=20">'
-            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=20">'
-            js = f'<script src="{prefix}assets/premium.js?v=20" defer></script>'
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=21">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=21">'
+            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=21">'
+            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=21">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=21">'
+            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=21">'
+            js = f'<script src="{prefix}assets/premium.js?v=21" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
