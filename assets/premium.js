@@ -86,6 +86,19 @@
   forceImage('.elementor-element[data-id="b794155"] img', THERAPY_COUPLE);
   forceImage('.elementor-element[data-id="04d75c5"] img', THERAPY_FAMILY);
 
+
+  /* Ensure testimonial contrast regardless of copied Elementor inline styles. */
+  const testimonial = document.querySelector('.elementor-element[data-id="2d8ba58"]');
+  if (testimonial) {
+    testimonial.querySelectorAll('p,.elementor-heading-title,.elementor-widget-text-editor,.elementor-widget-text-editor *').forEach(el => {
+      el.style.setProperty('color', '#ffffff', 'important');
+      el.style.setProperty('opacity', '1', 'important');
+      el.style.setProperty('text-shadow', 'none', 'important');
+    });
+    const quoteIcon = testimonial.querySelector('.elementor-element[data-id="f914229"] img');
+    if (quoteIcon) quoteIcon.style.setProperty('filter', 'brightness(0) invert(1)', 'important');
+  }
+
   /* Modern homepage service cards, retaining all original content. */
   if (body.classList.contains('floreix-home')) {
     ['fd27b31', 'e6971ee', 'b809155'].forEach(id => {
