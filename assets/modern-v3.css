@@ -1421,3 +1421,16 @@ body.premium-site.floreix-home .elementor-element[data-id="ec75349"] img{
     object-position:center 38%!important;
   }
 }
+
+
+/* Definitive override for the old V2 fallback nature image. */
+body.premium-site.floreix-home .elementor-element[data-id="bf1e175"] .elementor-element[data-id="5a72831"]{
+  background-image:none!important;
+  background:none!important;
+  background-color:transparent!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="bf1e175"] .elementor-element[data-id="5a72831"]>.elementor-widget-wrap{
+  background-image:none!important;
+  background:none!important;
+  background-color:transparent!important;
+}
