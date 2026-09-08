@@ -96,13 +96,31 @@ jobs:
 
             depth = len(path.parent.parts)
             prefix = '../' * depth
-            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=22">'
-            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=22">'
-            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=22">'
-            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=22">'
-            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=22">'
-            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=22">'
-            js = f'<script src="{prefix}assets/premium.js?v=22" defer></script>'
+
+            # Bake the supplied Floreix PNG directly into both desktop and mobile headers.
+            def replace_logo_tag(match):
+              tag = match.group(0)
+              tag = re.sub(r'\bsrc="[^"]*"', f'src="{prefix}assets/logo-floreix-clean.png"', tag, count=1)
+              tag = re.sub(r'\s+srcset="[^"]*"', '', tag)
+              tag = re.sub(r'\s+sizes="[^"]*"', '', tag)
+              tag = re.sub(r'\bwidth="[^"]*"', 'width="420"', tag)
+              tag = re.sub(r'\bheight="[^"]*"', 'height="204"', tag)
+              tag = re.sub(r'\balt="[^"]*"', 'alt="Floreix"', tag)
+              return tag
+
+            html = re.sub(
+              r'<img\b(?=[^>]*class="[^"]*custom-logo[^"]*")[^>]*>',
+              replace_logo_tag,
+              html
+            )
+
+            css = f'<link rel="stylesheet" href="{prefix}assets/premium.css?v=23">'
+            fixes = f'<link rel="stylesheet" href="{prefix}assets/premium-fixes.css?v=23">'
+            inner = f'<link rel="stylesheet" href="{prefix}assets/inner-pages.css?v=23">'
+            polish = f'<link rel="stylesheet" href="{prefix}assets/final-polish.css?v=23">'
+            navigation = f'<link rel="stylesheet" href="{prefix}assets/navigation.css?v=23">'
+            modern = f'<link rel="stylesheet" href="{prefix}assets/modern-v3.css?v=23">'
+            js = f'<script src="{prefix}assets/premium.js?v=23" defer></script>'
 
             html = html.replace('</head>', f'{marker}\n{css}\n{fixes}\n{inner}\n{polish}\n{navigation}\n{modern}\n</head>', 1)
             html = html.replace('</body>', f'{js}\n</body>', 1)
