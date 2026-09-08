@@ -1349,3 +1349,15 @@ body.premium-site .entry-content{
   padding-left:0!important;
   padding-right:0!important;
 }
+
+
+/* Override the older V2 first-section rule with the unified V5 shell. */
+body.premium-site main .elementor>.elementor-section:first-child.floreix-hero,
+body.premium-site .entry-content>.elementor>.elementor-section:first-child.floreix-hero,
+body.premium-site .elementor-element[data-id="1326b4b"].floreix-hero,
+body.premium-site .elementor-element[data-id="7e3c9a4"].floreix-hero{
+  width:var(--v5-shell)!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
