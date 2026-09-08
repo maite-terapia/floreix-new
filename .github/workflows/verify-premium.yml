@@ -11,6 +11,7 @@ on:
       - 'assets/navigation.css'
       - 'assets/premium.js'
       - 'assets/modern-v3.css'
+      - 'assets/logo-floreix-clean.png'
       - 'index.html'
       - 'about/index.html'
       - 'contact/index.html'
@@ -125,6 +126,10 @@ jobs:
                   featfLogoLoaded:(()=>{const i=document.querySelector('.floreix-featf-logo');return i?i.complete&&i.naturalWidth>0:null})(),
                   kineLogoLoaded:(()=>{const i=document.querySelector('.floreix-kine-logo');return i?i.complete&&i.naturalWidth>0:null})(),
                   spanishInicioTypo:[...document.querySelectorAll('header a')].some(a=>a.textContent.trim().toLowerCase()==='inicioo'),
+                  whatsappPresent:!!document.querySelector('.floreix-whatsapp[href="https://wa.me/34689056569"]'),
+                  testimonialColor:(()=>{const e=document.querySelector('.elementor-element[data-id="d278a40"] p');return e?getComputedStyle(e).color:null})(),
+                  kineVisibleText:(()=>{const e=document.querySelector('.floreix-degree-credential');return e?e.innerText.trim():null})(),
+                  featfVisibleText:(()=>{const e=document.querySelector('.floreix-featf-credential');return e?e.innerText.trim():null})(),
                   maitePanelRadius:(()=>{const e=document.querySelector('.elementor-element[data-id="7326ae8"]');return e?parseFloat(getComputedStyle(e).borderRadius):null})(),
                   maitePhotoRadius:(()=>{const e=document.querySelector('.elementor-element[data-id="ec75349"] img');return e?parseFloat(getComputedStyle(e).borderRadius):null})(),
                   maiteColumnBg:(()=>{const e=document.querySelector('.elementor-element[data-id="5a72831"]');return e?getComputedStyle(e).backgroundImage:null})(),
@@ -150,9 +155,10 @@ jobs:
                 if(mode==='desktop'&&info.heroHeight>525) failures.push(`${name}-${mode}: hero too tall (${info.heroHeight})`);
               }
               if(info.logoFilter!=='missing'&&info.logoFilter!=='none') failures.push(`${name}-${mode}: logo altered (${info.logoFilter})`);
-              if(info.headerLogo && !info.headerLogo.includes('logo-floreix-nou.png')) failures.push(`${name}-${mode}: new header logo missing`);
+              if(!info.whatsappPresent) failures.push(`${name}-${mode}: WhatsApp button missing or wrong number`);
+              if(info.headerLogo && !info.headerLogo.includes('logo-floreix-clean.png')) failures.push(`${name}-${mode}: new header logo missing`);
               if(!info.footer||info.footerDisplay==='none') failures.push(`${name}-${mode}: footer missing`);
-              if(!info.footerLogo.includes('logo-floreix-nou.png')) failures.push(`${name}-${mode}: new footer logo missing`);
+              if(!info.footerLogo.includes('logo-floreix-clean.png')) failures.push(`${name}-${mode}: new footer logo missing`);
               if(info.serviceRadius!==null&&info.serviceRadius<16) failures.push(`${name}-${mode}: service photo not rounded`);
               if(mode==='desktop'&&info.serviceHeight&&info.serviceHeight>380) failures.push(`${name}-${mode}: service photo too tall (${info.serviceHeight})`);
               if((name==='home'||name==='es')&&info.serviceNumberVisible) failures.push(`${name}-${mode}: service numbers still visible`);
@@ -160,6 +166,8 @@ jobs:
               if((name==='home'||name==='es')&&mode==='desktop'&&info.maiteLoaded===false) failures.push(`${name}: Maite image did not load`);
               if((name==='home'||name==='es')&&mode==='desktop'&&!info.maiteSrc.includes('maite-sobre-nosotros.webp')) failures.push(`${name}: office portrait missing from Maite section`);
               if((name==='home'||name==='es')&&mode==='desktop'&&(!info.featfPresent||info.credentialsCount<5)) failures.push(`${name}: credentials/FEATF block incomplete`);
+              if((name==='home'||name==='es')&&info.testimonialColor!=='rgb(255, 255, 255)') failures.push(`${name}-${mode}: testimonial text lacks contrast (${info.testimonialColor})`);
+              if((name==='home'||name==='es')&&mode==='desktop'&&((info.kineVisibleText||'').length>0 || (info.featfVisibleText||'').length>0)) failures.push(`${name}: KINE/FEATF cards should be logo-only`);
               if((name==='home'||name==='es')&&mode==='desktop'&&info.copcLoaded===false) failures.push(`${name}: COPC logo did not load`);
               if(mode==='desktop'&&info.desktopSubDisplay!=='n/a'&&info.desktopSubDisplay!=='none') failures.push(`${name}-${mode}: submenu unexpectedly open`);
               if(mode==='mobile'&&info.mobileMenuDisplay!=='n/a'&&info.mobileMenuDisplay!=='none') failures.push(`${name}-${mode}: mobile menu unexpectedly open`);
