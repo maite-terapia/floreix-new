@@ -84,6 +84,8 @@ jobs:
             html = path.read_text(encoding='utf-8')
             html = html.replace(old, new)
             html = html.replace('Static visual replica of floreix.com', 'Premium Floreix concept')
+            if path.parts and path.parts[0] == 'es':
+              html = html.replace('Inicioo', 'Inicio')
 
             for asset in ['premium.css','premium-fixes.css','inner-pages.css','final-polish.css','navigation.css','modern-v3.css']:
               html = re.sub(r'<link rel="stylesheet" href="[^"]*assets/' + re.escape(asset) + r'[^>]*>','',html)
