@@ -5,14 +5,14 @@
   const BASE = 'https://maite-terapia.github.io/floreix-new/';
   const ASSET_BASE = ['127.0.0.1','localhost'].includes(location.hostname) ? '/' : BASE;
   const ORIGINAL_LOGO = ASSET_BASE + 'assets/logo-floreix-nou.png';
-  const MAITE_HOME = ASSET_BASE + 'assets/maite-despacho.webp';
+  const MAITE_HOME = ASSET_BASE + 'assets/maite-sobre-nosotros.webp';
   const COPC = 'https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10-1024x301.png';
   const UB = 'https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png';
   const UOC = 'https://floreix.com/wp-content/uploads/2024/02/uoc_masterbrand_2linies_posititiu.jpg';
   const THERAPY_INDIVIDUAL = 'https://floreix.com/wp-content/uploads/2026/03/Terapia-individual-ros.webp';
   const THERAPY_COUPLE = 'https://floreix.com/wp-content/uploads/2026/03/ChatGPT-Image-Mar-11-2026-12_54_39-PM.webp';
   const THERAPY_FAMILY = 'https://floreix.com/wp-content/uploads/2026/03/Sesion-de-terapia-familiar-sonriente.webp';
-  const MAITE_ABOUT = ASSET_BASE + 'assets/maite-despacho.webp';
+  const MAITE_ABOUT = ASSET_BASE + 'assets/maite-sobre-nosotros.webp';
   const FEATF_LOGO = ASSET_BASE + 'assets/logo-featf.jpg';
   const KINE_LOGO = ASSET_BASE + 'assets/logo-kine.jpg';
 
