@@ -15,7 +15,7 @@
 
   const rawPath = location.pathname.replace(/^\/floreix-new/, '') || '/';
   const isSpanish = document.documentElement.lang.toLowerCase().startsWith('es') || rawPath.startsWith('/es/');
-  const normalizedPath = rawPath.replace(/\/+$/, '') || '/';
+  const normalizedPath = rawPath.replace(/\/index\.html$/, '').replace(/\/+$/, '') || '/';
 
   const routeClasses = [
     ['floreix-home', normalizedPath === '/' || normalizedPath === '/es'],
