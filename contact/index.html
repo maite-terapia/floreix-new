@@ -231,6 +231,13 @@ gtag("config", "GT-PLWZCVWQ");
 .floreix-contact-form .floreix-contact-privacy { margin: 8px 0 18px !important; font-size: 13px !important; line-height: 1.5 !important; font-weight: 400 !important; opacity: .80; }
 .floreix-contact-form .floreix-form-honey { display: none !important; }
 .floreix-contact-form .floreix-contact-submit { cursor: pointer; }
+.floreix-contact-form .floreix-contact-submit:disabled { opacity: .68; cursor: wait; }
+.floreix-contact-form .floreix-contact-status[hidden] { display: none !important; }
+.floreix-contact-form .floreix-contact-status { margin: 18px 0 0; font-size: 14px !important; line-height: 1.6; }
+.floreix-contact-form .floreix-contact-status.is-success { color: #255941; }
+.floreix-contact-form .floreix-contact-status.is-error { color: #853b32; }
+.floreix-contact-form .floreix-contact-status a { text-decoration: underline; }
+
 .floreix-contact-form .floreix-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 </style>
 </head>
@@ -465,7 +472,7 @@ gtag("config", "GT-PLWZCVWQ");
 						<div class="elementor-element elementor-element-1506722 elementor-widget elementor-widget-heading" data-id="1506722" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<h2 class="elementor-heading-title elementor-size-default">Envia un correu electrònic:</h2>				</div>
 				<div class="elementor-element elementor-element-daf237d elementor-widget elementor-widget-shortcode" data-id="daf237d" data-element_type="widget" data-e-type="widget" data-widget_type="shortcode.default">
-							<div class="elementor-shortcode"><div class="wpforms-container " id="wpforms-6"><form id="floreix-contact-form" class="floreix-contact-form" action="https://formsubmit.co/maite@floreix.com" method="POST">
+							<div class="elementor-shortcode"><div class="wpforms-container " id="wpforms-6"><form id="floreix-contact-form" class="floreix-contact-form" action="https://formsubmit.co/maite@floreix.com" method="POST" data-form-language="ca">
   <div class="wpforms-field-container">
     <div class="wpforms-field wpforms-field-name">
       <label class="floreix-sr-only" for="floreix-contact-name">Nom</label>
@@ -490,6 +497,7 @@ gtag("config", "GT-PLWZCVWQ");
   <div class="wpforms-submit-container">
     <button class="floreix-contact-submit" type="submit">Enviar</button>
   </div>
+  <p id="floreix-contact-status" class="floreix-contact-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
 </form></div>  <!-- .wpforms-container --></div>
 						</div>
 					</div>
@@ -652,4 +660,5 @@ var wpforms_settings = {"val_required":"Aquest camp \u00e9s obligatori.","val_em
 
 
 <script src="../assets/premium.js?v=25" defer></script>
+<script src="../assets/contact-form.js?v=1" defer></script>
 </body></html>
