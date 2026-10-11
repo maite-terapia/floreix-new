@@ -1,6 +1,6 @@
 /*
  * Floreix contact form — progressive enhancement for static GitHub Pages.
- * Keeps the native FormSubmit POST action as a no-JavaScript fallback.
+ * Uses the FormSubmit AJAX API without sending visitors to an external page.
  * Do not put SMTP credentials or secrets in this client-side file.
  */
 (function () {
@@ -28,6 +28,7 @@
   if (!button || !status) return;
 
   const originalLabel = button.textContent;
+  button.disabled = false;
   let isSending = false;
 
   function displayStatus(type) {
@@ -52,10 +53,14 @@
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
+    event.stopImmediatePropagation();
 
     if (isSending || !form.reportValidity()) return;
 
     const fields = Object.fromEntries(new FormData(form).entries());
+    // FormSubmit may reject cross-origin requests without the source page URL.
+    // Pass the full public form path even with strict browser Referrer-Policy.
+    fields._url = window.location.origin + window.location.pathname;
     if (typeof fields._honey === "string" && fields._honey.trim() !== "") return;
 
     const controller = new AbortController();
@@ -86,12 +91,15 @@
       const result = await response.json();
       const accepted = result && (result.success === true || result.success === "true" || result.success === 1);
       if (!response.ok || !accepted) {
-        throw new Error("FormSubmit did not confirm the submission");
+        const providerMessage = typeof result?.message === "string" ? result.message.slice(0, 240) : "No confirmation";
+        throw new Error("FormSubmit HTTP " + response.status + ": " + providerMessage);
       }
 
       form.reset();
       displayStatus("success");
-    } catch (_error) {
+    } catch (error) {
+      // Log diagnostics without logging the visitor's name, email or message.
+      console.warn("[Floreix contact] Submission could not be confirmed:", error instanceof Error ? error.message : "Unknown network error");
       // The server might have received the POST even if the response failed.
       // Do not retry automatically; that can produce duplicate emails.
       displayStatus("error");
@@ -101,5 +109,6 @@
       button.disabled = false;
       button.textContent = originalLabel;
     }
-  });
+  }, true);
 })();
+
