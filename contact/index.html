@@ -223,6 +223,16 @@ gtag("config", "GT-PLWZCVWQ");
 <link rel="stylesheet" href="../assets/final-polish.css?v=23">
 <link rel="stylesheet" href="../assets/navigation.css?v=23">
 <link rel="stylesheet" href="../assets/modern-v3.css?v=27">
+<style id="floreix-contact-form-style">
+.floreix-contact-form .wpforms-field { margin: 0 0 18px; }
+.floreix-contact-form .wpforms-field input,
+.floreix-contact-form .wpforms-field textarea { display: block; width: 100%; box-sizing: border-box; }
+.floreix-contact-form .wpforms-field textarea { min-height: 136px; resize: vertical; }
+.floreix-contact-form .floreix-contact-privacy { margin: 8px 0 20px; font-size: 13px; line-height: 1.55; opacity: .84; }
+.floreix-contact-form .floreix-form-honey { display: none !important; }
+.floreix-contact-form .floreix-contact-submit { cursor: pointer; }
+.floreix-contact-form .floreix-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+</style>
 </head>
 
 <body itemtype="https://schema.org/WebPage" itemscope="itemscope" class="wp-singular page-template-default page page-id-16 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.12.3 ast-single-post ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header elementor-default elementor-kit-1316 elementor-page elementor-page-16 e--ua-blink e--ua-webkit" style="" data-elementor-device-mode="desktop">
@@ -455,7 +465,32 @@ gtag("config", "GT-PLWZCVWQ");
 						<div class="elementor-element elementor-element-1506722 elementor-widget elementor-widget-heading" data-id="1506722" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<h2 class="elementor-heading-title elementor-size-default">Envia un correu electrònic:</h2>				</div>
 				<div class="elementor-element elementor-element-daf237d elementor-widget elementor-widget-shortcode" data-id="daf237d" data-element_type="widget" data-e-type="widget" data-widget_type="shortcode.default">
-							<div class="elementor-shortcode"><div class="wpforms-container " id="wpforms-6"><form id="wpforms-form-6" class="wpforms-validate wpforms-form wpforms-ajax-form" data-formid="6" method="post" enctype="multipart/form-data" action="/contact/" data-token="238979c4f4d7b65de177a9ce9d9ab4d7" data-token-time="1788452903" novalidate="novalidate"><noscript class="wpforms-error-noscript">Activeu el JavaScript al navegador per a poder completar el formulari.</noscript><div class="wpforms-field-container"><div id="wpforms-6-field_0-container" class="wpforms-field wpforms-field-name" data-field-id="0"><label class="wpforms-field-label wpforms-label-hide" for="wpforms-6-field_0">Nom <span class="wpforms-required-label">*</span></label><input type="text" id="wpforms-6-field_0" class="wpforms-field-large wpforms-field-required" name="wpforms[fields][0]" placeholder="Nom" required=""></div><div id="wpforms-6-field_1-container" class="wpforms-field wpforms-field-email" data-field-id="1"><label class="wpforms-field-label wpforms-label-hide" for="wpforms-6-field_1">Correu electrònic <span class="wpforms-required-label">*</span></label><input type="email" id="wpforms-6-field_1" class="wpforms-field-large wpforms-field-required" name="wpforms[fields][1]" placeholder="Correu electrònic" spellcheck="false" required=""></div><div id="wpforms-6-field_2-container" class="wpforms-field wpforms-field-textarea" data-field-id="2"><label class="wpforms-field-label wpforms-label-hide" for="wpforms-6-field_2">Missatge <span class="wpforms-required-label">*</span></label><textarea id="wpforms-6-field_2" class="wpforms-field-medium wpforms-field-required" name="wpforms[fields][2]" placeholder="Missatge" required=""></textarea></div></div><!-- .wpforms-field-container --><div class="wpforms-submit-container"><input type="hidden" name="wpforms[id]" value="6"><input type="hidden" name="page_title" value="Contacte"><input type="hidden" name="page_url" value="https://floreix.com/contact/"><input type="hidden" name="url_referer" value=""><input type="hidden" name="page_id" value="16"><input type="hidden" name="wpforms[post_id]" value="16"><button type="submit" name="wpforms[submit]" id="wpforms-submit-6" class="wpforms-submit" data-alt-text="Sending..." data-submit-text="Enviar" aria-live="assertive" value="wpforms-submit">Enviar</button><img loading="lazy" decoding="async" src="https://floreix.com/wp-content/plugins/wpforms-lite/assets/images/submit-spin.svg" class="wpforms-submit-spinner" style="display: none;" width="26" height="26" alt="S'està carregant"></div></form></div>  <!-- .wpforms-container --></div>
+							<div class="elementor-shortcode"><div class="wpforms-container " id="wpforms-6"><form id="floreix-contact-form" class="floreix-contact-form" action="https://formsubmit.co/maite@floreix.com" method="POST">
+  <div class="wpforms-field-container">
+    <div class="wpforms-field wpforms-field-name">
+      <label class="floreix-sr-only" for="floreix-contact-name">Nom</label>
+      <input id="floreix-contact-name" type="text" name="name" placeholder="Nom" autocomplete="name" maxlength="120" required>
+    </div>
+    <div class="wpforms-field wpforms-field-email">
+      <label class="floreix-sr-only" for="floreix-contact-email">Correu electrònic</label>
+      <input id="floreix-contact-email" type="email" name="email" placeholder="Correu electrònic" autocomplete="email" maxlength="254" required>
+    </div>
+    <div class="wpforms-field wpforms-field-textarea">
+      <label class="floreix-sr-only" for="floreix-contact-message">Missatge</label>
+      <textarea id="floreix-contact-message" name="message" placeholder="Missatge" maxlength="5000" required></textarea>
+    </div>
+  </div>
+  <input type="hidden" name="_subject" value="Nou missatge de contacte · Floreix (català)">
+  <input type="hidden" name="_template" value="table">
+  <div class="floreix-form-honey" aria-hidden="true">
+    <label for="floreix-contact-website">Website</label>
+    <input type="text" id="floreix-contact-website" name="_honey" tabindex="-1" autocomplete="off">
+  </div>
+  <p class="floreix-contact-privacy">Per protegir la teva privacitat, no incloguis informació de salut ni dades sensibles al missatge. En enviar aquest formulari, les dades es transmeten a través de FormSubmit per fer arribar la consulta a Floreix. Consulta la <a href="../privacy-policy/">política de privacitat</a>.</p>
+  <div class="wpforms-submit-container">
+    <button class="floreix-contact-submit" type="submit">Enviar</button>
+  </div>
+</form></div>  <!-- .wpforms-container --></div>
 						</div>
 					</div>
 		</div>
