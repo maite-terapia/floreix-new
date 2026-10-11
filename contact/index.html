@@ -489,6 +489,7 @@ gtag("config", "GT-PLWZCVWQ");
   </div>
   <input type="hidden" name="_subject" value="Nou missatge de contacte · Floreix (català)">
   <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_url" value="https://maite-terapia.github.io/floreix-new/contact/">
   <div class="floreix-form-honey" aria-hidden="true">
     <label for="floreix-contact-website">Website</label>
     <input type="text" id="floreix-contact-website" name="_honey" tabindex="-1" autocomplete="off">
@@ -721,6 +722,9 @@ var wpforms_settings = {"val_required":"Aquest camp \u00e9s obligatori.","val_em
     if (isSending || !form.reportValidity()) return;
 
     const fields = Object.fromEntries(new FormData(form).entries());
+    // FormSubmit may reject cross-origin requests without the source page URL.
+    // Pass the full public form path even with strict browser Referrer-Policy.
+    fields._url = window.location.origin + window.location.pathname;
     if (typeof fields._honey === "string" && fields._honey.trim() !== "") return;
 
     const controller = new AbortController();
@@ -751,12 +755,15 @@ var wpforms_settings = {"val_required":"Aquest camp \u00e9s obligatori.","val_em
       const result = await response.json();
       const accepted = result && (result.success === true || result.success === "true" || result.success === 1);
       if (!response.ok || !accepted) {
-        throw new Error("FormSubmit did not confirm the submission");
+        const providerMessage = typeof result?.message === "string" ? result.message.slice(0, 240) : "No confirmation";
+        throw new Error("FormSubmit HTTP " + response.status + ": " + providerMessage);
       }
 
       form.reset();
       displayStatus("success");
-    } catch (_error) {
+    } catch (error) {
+      // Log diagnostics without logging the visitor's name, email or message.
+      console.warn("[Floreix contact] Submission could not be confirmed:", error instanceof Error ? error.message : "Unknown network error");
       // The server might have received the POST even if the response failed.
       // Do not retry automatically; that can produce duplicate emails.
       displayStatus("error");
