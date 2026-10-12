@@ -83,6 +83,7 @@ def download_family(item):
         return family, None, {"error": str(last_error), "candidates": candidates}
     original_filename = Path(urlsplit(family).path).name
     root_name = Path(original_filename).stem
+    animated = False
     is_svg = selected.lower().endswith(".svg")
     is_favicon = "favicon" in root_name.lower()
     is_logo = any(x in root_name.lower() for x in ("logo", "masterbrand", "captura-de-pantalla", "avatar"))
