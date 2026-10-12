@@ -1,4 +1,5 @@
 name: Audit image layout on desktop and mobile
+# Re-run after the pre-cutover Maps and WPForms cleanup.
 
 on:
   push:
