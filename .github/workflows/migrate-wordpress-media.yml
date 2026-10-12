@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/migrate-wordpress-media.yml'
+      - 'scripts/migrate-wordpress-media.py'
   workflow_dispatch:
 
 permissions:
