@@ -1,0 +1,364 @@
+{
+  "requested": 89,
+  "mirrored": 88,
+  "errors": [
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/pro/images/times-solid-white.svg",
+      "error": "404 Client Error: Not Found for url: https://floreix.com/wp-content/plugins/wpforms-lite/assets/pro/images/times-solid-white.svg"
+    }
+  ],
+  "saved": [
+    {
+      "path": "/wp-content/themes/astra/assets/css/minified/main.min.css",
+      "bytes": 45749
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/frontend.min.css",
+      "bytes": 54666
+    },
+    {
+      "path": "/wp-content/cache/min/1/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css",
+      "bytes": 60583
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css",
+      "bytes": 26702
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-heading.min.css",
+      "bytes": 560
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-divider.min.css",
+      "bytes": 4258
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-image.min.css",
+      "bytes": 214
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-image-box.min.css",
+      "bytes": 1657
+    },
+    {
+      "path": "/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/roboto.css",
+      "bytes": 94266
+    },
+    {
+      "path": "/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/robotoslab.css",
+      "bytes": 21366
+    },
+    {
+      "path": "/wp-content/cache/min/1/wp-content/uploads/elementor/google-fonts/css/robotoserif.css",
+      "bytes": 39231
+    },
+    {
+      "path": "/wp-content/themes/astra/assets/js/minified/flexibility.min.js",
+      "bytes": 15525
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js",
+      "bytes": 15073
+    },
+    {
+      "path": "/wp-includes/js/jquery/jquery.min.js",
+      "bytes": 87553
+    },
+    {
+      "path": "/wp-includes/js/jquery/jquery-migrate.min.js",
+      "bytes": 13577
+    },
+    {
+      "path": "/wp-content/themes/astra/assets/js/minified/frontend.min.js",
+      "bytes": 25965
+    },
+    {
+      "path": "/wp-includes/js/dist/dom-ready.min.js",
+      "bytes": 881
+    },
+    {
+      "path": "/wp-content/cache/min/1/wp-content/plugins/astra-sites/inc/lib/onboarding/assets/dist/template-preview/main.js",
+      "bytes": 6586
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js",
+      "bytes": 103
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/js/frontend-modules.min.js",
+      "bytes": 53086
+    },
+    {
+      "path": "/wp-includes/js/jquery/ui/core.min.js",
+      "bytes": 18674
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/js/frontend.min.js",
+      "bytes": 60022
+    },
+    {
+      "path": "/wp-content/plugins/google-site-kit/dist/assets/js/googlesitekit-events-provider-wpforms-08f4a4ca33532233b542.js",
+      "bytes": 3046
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/css/frontend/classic/wpforms-base.min.css",
+      "bytes": 65424
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css",
+      "bytes": 4726
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css",
+      "bytes": 5110
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css",
+      "bytes": 6713
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-google_maps.min.css",
+      "bytes": 261
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/lib/jquery.validate.min.js",
+      "bytes": 25308
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/lib/mailcheck.min.js",
+      "bytes": 4014
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/lib/punycode.min.js",
+      "bytes": 1713
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/js/share/utils.min.js",
+      "bytes": 1490
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/js/frontend/wpforms.min.js",
+      "bytes": 54698
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/js/frontend/analytics.min.js",
+      "bytes": 5329
+    },
+    {
+      "path": "/wp-content/plugins/wpforms-lite/assets/js/frontend/fields/address.min.js",
+      "bytes": 1826
+    },
+    {
+      "path": "/wp-content/plugins/clsop/assets/js/wpr-beacon.min.js",
+      "bytes": 26004
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/css/widget-spacer.min.css",
+      "bytes": 1793
+    },
+    {
+      "path": "/wp-includes/css/dist/block-library/style.min.css",
+      "bytes": 140829
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot",
+      "bytes": 151556
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2",
+      "bytes": 81612
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff",
+      "bytes": 97804
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.ttf",
+      "bytes": 151368
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.svg",
+      "bytes": 749223
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot",
+      "bytes": 34034
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff2",
+      "bytes": 13276
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff",
+      "bytes": 16276
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.ttf",
+      "bytes": 33736
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.svg",
+      "bytes": 144714
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot",
+      "bytes": 203030
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff2",
+      "bytes": 78196
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff",
+      "bytes": 101652
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.ttf",
+      "bytes": 202744
+    },
+    {
+      "path": "/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.svg",
+      "bytes": 918991
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkc3kawzu.woff2",
+      "bytes": 39456
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkankawzu.woff2",
+      "bytes": 24576
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkcnkawzu.woff2",
+      "bytes": 4468
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkbxkawzu.woff2",
+      "bytes": 18800
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkenkawzu.woff2",
+      "bytes": 44336
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkahkawzu.woff2",
+      "bytes": 22288
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkcxkawzu.woff2",
+      "bytes": 13888
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkchkawzu.woff2",
+      "bytes": 28536
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo5cnqeu92fr1mu53zec9_vu3r1gihoszmkbnka.woff2",
+      "bytes": 44192
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3gubgee.woff2",
+      "bytes": 35568
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3iubgee.woff2",
+      "bytes": 22796
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3cubgee.woff2",
+      "bytes": 4340
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3-ubgee.woff2",
+      "bytes": 17628
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluamawcubgee.woff2",
+      "bytes": 40572
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluamaxkubgee.woff2",
+      "bytes": 20408
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3oubgee.woff2",
+      "bytes": 13004
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3kubgee.woff2",
+      "bytes": 26428
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/roboto-kfo7cnqeu92fr1me7ksn66agldtyluama3yuba.woff2",
+      "bytes": 40128
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufa5qw54a.woff2",
+      "bytes": 32340
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufj5qw54a.woff2",
+      "bytes": 21364
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufb5qw54a.woff2",
+      "bytes": 2220
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufo5qw54a.woff2",
+      "bytes": 14868
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufc5qw54a.woff2",
+      "bytes": 9980
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufd5qw54a.woff2",
+      "bytes": 21200
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoslab-bngmuxzytxpivibgjjsb6ufn5qu.woff2",
+      "bytes": 34236
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70kjywflp6flr3gzx7k8uyevqnyr1e7vn-f51xyugcqepovb0klc2v0wkkb0q4mszxyqf2cgachbbh73ob9-w.woff2",
+      "bytes": 18008
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70kjywflp6flr3gzx7k8uyevqnyr1e7vn-f51xyugcqepovb0klc2v0wkkb0q4mszxyqf2cgachbbhy3ob9-w.woff2",
+      "bytes": 29388
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70kjywflp6flr3gzx7k8uyevqnyr1e7vn-f51xyugcqepovb0klc2v0wkkb0q4mszxyqf2cgachbbh53ob9-w.woff2",
+      "bytes": 14580
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70kjywflp6flr3gzx7k8uyevqnyr1e7vn-f51xyugcqepovb0klc2v0wkkb0q4mszxyqf2cgachbbh43ob9-w.woff2",
+      "bytes": 51804
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70kjywflp6flr3gzx7k8uyevqnyr1e7vn-f51xyugcqepovb0klc2v0wkkb0q4mszxyqf2cgachbbh23oy.woff2",
+      "bytes": 72952
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70mjywflp6flr3gzx7k8uyuxds9zvwdmxcb8lxygmuii32ugovldx6ugfjl4-3smm_kb_qxsex5jch0xoi.woff2",
+      "bytes": 15696
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70mjywflp6flr3gzx7k8uyuxds9zvwdmxcb8lxygmuii32ugovldx6ugfjl4-3smm_kb_qxsex5lsh0xoi.woff2",
+      "bytes": 32040
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70mjywflp6flr3gzx7k8uyuxds9zvwdmxcb8lxygmuii32ugovldx6ugfjl4-3smm_kb_qxsex5jih0xoi.woff2",
+      "bytes": 13176
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70mjywflp6flr3gzx7k8uyuxds9zvwdmxcb8lxygmuii32ugovldx6ugfjl4-3smm_kb_qxsex5jyh0xoi.woff2",
+      "bytes": 49848
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/fonts/robotoserif-r70mjywflp6flr3gzx7k8uyuxds9zvwdmxcb8lxygmuii32ugovldx6ugfjl4-3smm_kb_qxsex5ksh0.woff2",
+      "bytes": 66104
+    }
+  ]
+}
