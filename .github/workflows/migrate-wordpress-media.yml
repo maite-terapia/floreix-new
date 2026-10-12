@@ -1,0 +1,33 @@
+name: Check WordPress media access
+
+on:
+  push:
+    paths:
+      - '.github/workflows/migrate-wordpress-media.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  media-source-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check original WordPress media with an actual GET
+        shell: bash
+        run: |
+          set -u
+          urls=(
+            'https://floreix.com/wp-content/uploads/2026/03/Psicoterapia-inici.webp'
+            'https://floreix.com/wp-content/uploads/2023/11/Terapia-a-la-natura-pagina-principal.webp'
+            'https://floreix.com/wp-content/uploads/2023/10/IMG_5277-2-1-scaled.jpg'
+          )
+          i=0
+          for url in "${urls[@]}"; do
+            i=$((i+1))
+            echo "::group::Check image $i"
+            curl -L -sS -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 Chrome/130.0 Safari/537.36' --retry 2 --connect-timeout 12 --max-time 45 -o "/tmp/floreix-$i" -w 'status=%{http_code} size=%{size_download} type=%{content_type}\n' "$url" || true
+            file "/tmp/floreix-$i" || true
+            echo "::endgroup::"
+          done
