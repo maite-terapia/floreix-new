@@ -1,0 +1,82 @@
+name: Prepare Floreix domain cutover
+
+on:
+  push:
+    paths:
+      - '.github/workflows/prepare-domain-cutover.yml'
+      - 'scripts/prepare-domain-cutover.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prepare-floreix-cutover
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply safe domain-independent links and SEO
+        run: |
+          python -m py_compile scripts/prepare-domain-cutover.py
+          python scripts/prepare-domain-cutover.py
+      - name: Validate pages and staging navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from xml.etree import ElementTree
+          import re
+          pages=[
+            "index.html", "about/index.html", "psicoterapia/index.html",
+            "terapia-a-la-natura/index.html", "metodologia/index.html",
+            "contact/index.html", "privacy-policy/index.html",
+            "es/index.html", "es/sobre-nosotros/index.html",
+            "es/psicoterapia/index.html", "es/terapia-en-la-naturaleza/index.html",
+            "es/metodologia/index.html", "es/contacto/index.html",
+            "es/terminos-y-condiciones/index.html"
+          ]
+          errors=[]
+          for file in pages:
+            s=Path(file).read_text(encoding="utf-8")
+            if 'https://floreix.com/' not in s:errors.append(file+" has no final canonical")
+            if 'rel="canonical"' not in s:errors.append(file+" canonical missing")
+            if 'hreflang="ca"' not in s or 'hreflang="es"' not in s:errors.append(file+" language links missing")
+            if re.search(r'<a\b[^>]*href=["\']https://maite-terapia\.github\.io/floreix-new/',s,re.I):
+              errors.append(file+" old staging navigation")
+            if re.search(r'<script\b[^>]*src=["\'][^"\']*(?:wpforms-lite|googlesitekit-events-provider-wpforms)',s,re.I):
+              errors.append(file+" WPForms script remains")
+            if re.search(r'<link\b[^>]*href=["\'][^"\']*wpforms-lite',s,re.I):
+              errors.append(file+" WPForms stylesheet remains")
+          for file in ["contact/index.html","es/contacto/index.html"]:
+            s=Path(file).read_text(encoding="utf-8")
+            if s.count('class="floreix-map-link"')!=2:errors.append(file+" map fallback links missing")
+            if 'https://api.web3forms.com/submit' not in s:errors.append(file+" Web3Forms missing")
+          t=ElementTree.parse("sitemap.xml")
+          if len(t.getroot())!=14:errors.append("Sitemap missing routes")
+          js=Path("assets/premium.js").read_text(encoding="utf-8")
+          if "const BASE = 'https://maite-terapia.github.io/floreix-new/'" in js:errors.append("Hardcoded GitHub asset base")
+          if errors:
+            raise SystemExit("\n".join(errors))
+          print("CUTOVER_STATIC_CHECKS_PASSED pages=14 maps=4 forms=2 sitemap=14")
+          PY
+          node --check assets/premium.js
+          node --check assets/web3forms-contact.js
+      - name: Commit deployment-ready pages
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html about contact metodologia privacy-policy psicoterapia terapia-a-la-natura es 404.html robots.txt sitemap.xml assets/premium.js
+          if git diff --cached --quiet; then
+            echo "No cutover adjustments required."
+          else
+            git commit -m "fix(cutover): domain-safe navigation SEO maps and WPForms cleanup"
+            git pull --rebase origin main
+            git push origin main
+          fi
