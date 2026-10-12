@@ -32,6 +32,9 @@ jobs:
           fetch-depth: 0
 
       - name: Copy exact content and photography from Floreix
+        # Migration to GitHub Pages: preserve current pages and the live contact forms.
+        # Running this legacy import would overwrite Floreix-new from an older repository.
+        if: false
         run: |
           set -e
           SRC='https://raw.githubusercontent.com/maite-terapia/floreix/main'
