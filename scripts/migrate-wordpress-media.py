@@ -41,6 +41,10 @@ SESSION_HEADERS = {
 }
 
 def canonical(url: str) -> str:
+    # The original WordPress site sometimes serialized Spanish image filenames
+    # with accented 'í' even though the actual on-disk asset uses Catalan
+    # 'Metodologia'. Both pages must resolve to the one verified source.
+    url = url.replace("Metodología-floreix-", "Metodologia-floreix-")
     return DIM_PATTERN.sub("", url)
 
 def dimensions_hint(url: str) -> int:
