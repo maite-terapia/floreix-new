@@ -12,6 +12,12 @@ const pages = [
   ["/contact/", "contact"],
   ["/es/", "home-es"],
   ["/es/contacto/", "contact-es"],
+  ["/es/metodologia/", "methodology-es"],
+  ["/es/psicoterapia/", "psychotherapy-es"],
+  ["/es/sobre-nosotros/", "about-es"],
+  ["/es/terapia-en-la-naturaleza/", "nature-es"],
+  ["/privacy-policy/", "legal-ca"],
+  ["/es/terminos-y-condiciones/", "legal-es"],
 ];
 const viewports = [
   {name:"desktop",width:1440,height:900},
@@ -26,6 +32,8 @@ const viewports = [
     for(const [url,label] of pages) {
       const page=await context.newPage();
       const errors=[];
+      const jsErrors=[];
+      page.on("pageerror", e=>jsErrors.push(String(e).slice(0,260)));
       page.on("response",response=>{
         if(response.status()>=400 && /\/assets\/media\/|\/wp-content\/|\/wp-includes\//.test(response.url())) {
           errors.push({status:response.status(),url:response.url()});
@@ -46,17 +54,26 @@ const viewports = [
           const localImages=images.filter(img=>(img.currentSrc||img.src).includes("/assets/media/"));
           const bad=localImages.filter(img=>img.complete&&img.naturalWidth===0).map(img=>img.currentSrc||img.src);
           const incomplete=localImages.filter(img=>!img.complete).map(img=>img.currentSrc||img.src);
+          const allBroken=images.filter(img=>img.complete&&img.naturalWidth===0).map(img=>img.currentSrc||img.src);
+          const maps=[...document.querySelectorAll('iframe[src*="maps.google.com/maps"]')].map(iframe=>{
+            const r=iframe.getBoundingClientRect();
+            return {width:Math.round(r.width),height:Math.round(r.height),src:iframe.src};
+          });
+          const mapLinks=document.querySelectorAll(".floreix-map-link a[href]").length;
+          const oldProjectLinks=[...document.querySelectorAll("a[href]")].filter(a=>a.getAttribute("href").includes("maite-terapia.github.io/floreix-new/")).length;
+          const staleWpforms=[...document.querySelectorAll("script[src],link[href]")].filter(el=>/wpforms-lite|googlesitekit-events-provider-wpforms/.test(el.src||el.href)).length;
           const cardImages=[...document.querySelectorAll(".floreix-service-card .elementor-widget-image img")].map(img=>{
             const s=getComputedStyle(img),r=img.getBoundingClientRect();
             return {width:Math.round(r.width),height:Math.round(r.height),objectFit:s.objectFit,objectPosition:s.objectPosition};
           });
           return {pageWidth:document.documentElement.scrollWidth,viewportWidth:window.innerWidth,
             hOverflow:Math.max(0,document.documentElement.scrollWidth-window.innerWidth),
-            localImages:localImages.length,bad,badCount:bad.length,incomplete,cardImages};
+            localImages:localImages.length,bad,badCount:bad.length,incomplete,cardImages,
+            allBroken,allBrokenCount:allBroken.length,maps,mapLinks,oldProjectLinks,staleWpforms};
         });
         const fileName=label+"-"+vp.name+".png";
         await page.screenshot({path:path.join("visual-qa-report",fileName),fullPage:true,animations:"disabled"});
-        findings.push({url,label,viewport:vp.name,httpStatus:response?.status()||null,...info,requestErrors:errors.slice(0,30)});
+        findings.push({url,label,viewport:vp.name,httpStatus:response?.status()||null,...info,requestErrors:errors.slice(0,30),jsErrors:jsErrors.slice(0,20)});
       }catch(e) {
         findings.push({url,label,viewport:vp.name,error:String(e)});
       }finally {await page.close();}
@@ -67,9 +84,15 @@ const viewports = [
   fs.writeFileSync("visual-qa-report/report.json",JSON.stringify(findings,null,2));
   console.log("VISUAL_QA_REPORT "+JSON.stringify(findings.map(f=>({
     page:f.label,viewport:f.viewport,http:f.httpStatus,localImages:f.localImages,
-    broken:f.badCount,horizontalOverflow:f.hOverflow,failedResources:f.requestErrors?.length||0,error:f.error
+    broken:f.badCount,brokenAll:f.allBrokenCount,horizontalOverflow:f.hOverflow,
+    oldProjectLinks:f.oldProjectLinks,staleWpforms:f.staleWpforms,
+    maps:f.maps?.length||0,mapLinks:f.mapLinks||0,
+    jsErrors:f.jsErrors?.length||0,failedResources:f.requestErrors?.length||0,error:f.error
   }))));
-  const failures=findings.filter(f=>f.error||f.httpStatus!==200||(f.badCount||0)>0||(f.hOverflow||0)>12||(f.incomplete||[]).length>0);
+  const failures=findings.filter(f=>f.error||f.httpStatus!==200||(f.badCount||0)>0||(f.allBrokenCount||0)>0||
+    (f.hOverflow||0)>12||(f.incomplete||[]).length>0||(f.oldProjectLinks||0)>0||(f.staleWpforms||0)>0||
+    ((f.label==="contact"||f.label==="contact-es")&&
+       ((f.maps||[]).length!==2||f.mapLinks!==2)));
   if(failures.length) {
     console.error("VISUAL_QA_FAILURES "+JSON.stringify(failures.map(f=>({
       page:f.label,viewport:f.viewport,broken:f.bad,overflow:f.hOverflow,error:f.error,incomplete:f.incomplete
