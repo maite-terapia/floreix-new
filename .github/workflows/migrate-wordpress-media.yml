@@ -1,4 +1,4 @@
-name: Check WordPress media access
+name: Migrate WordPress images
 
 on:
   push:
@@ -7,27 +7,36 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: migrate-wordpress-media
+  cancel-in-progress: false
 
 jobs:
-  media-source-check:
+  migrate:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 30
     steps:
-      - name: Check original WordPress media with an actual GET
-        shell: bash
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install photo processing dependencies
+        run: python -m pip install --disable-pip-version-check 'requests>=2.31' 'Pillow>=10.2'
+      - name: Compile and run the migration
         run: |
-          set -u
-          urls=(
-            'https://floreix.com/wp-content/uploads/2026/03/Psicoterapia-inici.webp'
-            'https://floreix.com/wp-content/uploads/2023/11/Terapia-a-la-natura-pagina-principal.webp'
-            'https://floreix.com/wp-content/uploads/2023/10/IMG_5277-2-1-scaled.jpg'
-          )
-          i=0
-          for url in "${urls[@]}"; do
-            i=$((i+1))
-            echo "::group::Check image $i"
-            curl -L -sS -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 Chrome/130.0 Safari/537.36' --retry 2 --connect-timeout 12 --max-time 45 -o "/tmp/floreix-$i" -w 'status=%{http_code} size=%{size_download} type=%{content_type}\n' "$url" || true
-            file "/tmp/floreix-$i" || true
-            echo "::endgroup::"
-          done
+          python -m py_compile scripts/migrate-wordpress-media.py
+          python scripts/migrate-wordpress-media.py
+      - name: Commit imported photos and corrected image URLs
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/media assets/media-manifest.json index.html about contact metodologia privacy-policy psicoterapia terapia-a-la-natura es assets/premium.js
+          if git diff --cached --quiet; then
+            echo "No media changes."
+          else
+            git commit -m "feat(media): self-host optimized WordPress photography and update all image URLs"
+            git pull --rebase origin main
+            git push origin main
+          fi
