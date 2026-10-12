@@ -1,7 +1,7 @@
 /*
  * Floreix contact form integration for Web3Forms.
- * Prepared for cutover once the recipient's Web3Forms access key is verified.
- * Deliberately not loaded on the live contact pages until configuration is complete.
+ * Sends through the documented JSON API and keeps the user on the page.
+ * HTML POST to the same provider remains available if JavaScript is disabled.
  * Web3Forms access keys are public form identifiers, not email/SMTP passwords.
  */
 (function () {
