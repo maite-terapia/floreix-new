@@ -182,6 +182,16 @@ def update_page(relative: str, pair: tuple[str,str]):
 @media(max-width:600px){.elementor-widget-google_maps .elementor-custom-embed iframe{min-height:260px}}
 </style>'''
             s=s.replace("</head>",css+"\n</head>",1)
+    # Hide legacy social icons in Contact: Twitter, Instagram and YouTube
+    # were all placeholder href="#" links, not working profiles.
+    if relative in ("contact/index.html","es/contacto/index.html"):
+        if 'id="floreix-hide-placeholder-social-links"' not in s:
+            s=s.replace("</head>",'<style id="floreix-hide-placeholder-social-links">\n.elementor-element[data-id="c7d043c"].elementor-widget-social-icons{display:none!important}\n</style>\n</head>',1)
+    # The original WordPress Catalan legal page sent Spanish visitors to the
+    # Spanish homepage instead of the translated legal page.
+    if relative=="privacy-policy/index.html":
+        s=s.replace('<a href="../es/" hreflang="es-ES"',
+                    '<a href="../es/terminos-y-condiciones/" hreflang="es-ES"')
     if relative.startswith("es/terminos"):
         # This standalone legal page does not load the premium layout; preserve its own styles.
         pass
