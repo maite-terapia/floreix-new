@@ -25,6 +25,9 @@ permissions:
 
 jobs:
   build:
+    # Retired: this generator overwrites current SEO, navigation, and legal content.
+    # deploy-pages.yml deploys the authored files directly on every main push.
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
