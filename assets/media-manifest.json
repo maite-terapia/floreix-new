@@ -1,0 +1,242 @@
+{
+  "image_families": 29,
+  "original_url_variants": 73,
+  "imported_families": 29,
+  "missing_families": [],
+  "rewritten_html_references": 248,
+  "remaining_wordpress_image_urls": {},
+  "assets": {
+    "https://floreix.com/wp-content/uploads/2021/11/avatar_on_about.png": {
+      "file": "0a9571067a-avatar-on-about.png",
+      "original": "https://floreix.com/wp-content/uploads/2021/11/avatar_on_about.png",
+      "bytes": 26758,
+      "width": 128,
+      "height": 128,
+      "format": "PNG"
+    },
+    "https://floreix.com/wp-content/uploads/2021/11/avatar_on_home.png": {
+      "file": "f9b8ad5b1c-avatar-on-home.png",
+      "original": "https://floreix.com/wp-content/uploads/2021/11/avatar_on_home.png",
+      "bytes": 18218,
+      "width": 128,
+      "height": 128,
+      "format": "PNG"
+    },
+    "https://floreix.com/wp-content/uploads/2021/11/quotes.svg": {
+      "file": "0ead5fcc53-quotes.svg",
+      "original": "https://floreix.com/wp-content/uploads/2021/11/quotes.svg",
+      "bytes": 742,
+      "width": null,
+      "height": null,
+      "format": "SVG"
+    },
+    "https://floreix.com/wp-content/uploads/2023/10/IMG_0018-1-1-min-compressed-scaled.jpg": {
+      "file": "0f8ef8129e-img-0018-1-1-min-compressed-scaled.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/10/IMG_0018-1-1-min-compressed-scaled.jpg",
+      "bytes": 1475378,
+      "width": 1650,
+      "height": 2200,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/10/IMG_0018-1-1-min-compressed.jpg": {
+      "file": "241a3e6909-img-0018-1-1-min-compressed.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/10/IMG_0018-1-1-min-compressed.jpg",
+      "bytes": 1597618,
+      "width": 1650,
+      "height": 2200,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/10/IMG_5277-2-1-scaled.jpg": {
+      "file": "a6a1aa8233-img-5277-2-1-scaled.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/10/IMG_5277-2-1-scaled.jpg",
+      "bytes": 247190,
+      "width": 2200,
+      "height": 1650,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/10/IMG_5380-1-1-scaled.jpg": {
+      "file": "ec653a2ac1-img-5380-1-1-scaled.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/10/IMG_5380-1-1-scaled.jpg",
+      "bytes": 224476,
+      "width": 2200,
+      "height": 1650,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/Contacta-amb-nosaltres.webp": {
+      "file": "83e8da0598-contacta-amb-nosaltres.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/Contacta-amb-nosaltres.webp",
+      "bytes": 417206,
+      "width": 1920,
+      "height": 500,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/IMG_0141.webp": {
+      "file": "7b09086829-img-0141.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/IMG_0141.webp",
+      "bytes": 57266,
+      "width": 1920,
+      "height": 500,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/IMG_0610.webp": {
+      "file": "78f23195a6-img-0610.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/IMG_0610.webp",
+      "bytes": 95402,
+      "width": 1920,
+      "height": 600,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/Metodologia-floreix-2-1.webp": {
+      "file": "9ee4d0aac2-metodologia-floreix-2-1.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/Metodologia-floreix-2-1.webp",
+      "bytes": 47546,
+      "width": 450,
+      "height": 600,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/Metodologia-floreix-3.webp": {
+      "file": "a872ece8b0-metodologia-floreix-3.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/Metodologia-floreix-3.webp",
+      "bytes": 20916,
+      "width": 500,
+      "height": 423,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/Terapia-a-la-natura-pagina-principal.webp": {
+      "file": "49a3b89d1b-terapia-a-la-natura-pagina-principal.webp",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/Terapia-a-la-natura-pagina-principal.webp",
+      "bytes": 188042,
+      "width": 675,
+      "height": 900,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2023/11/cropped-Favicon-grande.png": {
+      "file": "fbedd6bb93-cropped-favicon-grande.png",
+      "original": "https://floreix.com/wp-content/uploads/2023/11/cropped-Favicon-grande.png",
+      "bytes": 58895,
+      "width": 512,
+      "height": 512,
+      "format": "PNG"
+    },
+    "https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10.png": {
+      "file": "6183bb14d3-captura-de-pantalla-2024-02-17-a-las-17-43-10.png",
+      "original": "https://floreix.com/wp-content/uploads/2024/02/Captura-de-pantalla-2024-02-17-a-las-17.43.10.png",
+      "bytes": 172055,
+      "width": 1800,
+      "height": 529,
+      "format": "PNG"
+    },
+    "https://floreix.com/wp-content/uploads/2024/02/PHOTO-2021-10-03-19-44-33-1.jpg": {
+      "file": "7d0de66375-photo-2021-10-03-19-44-33-1.webp",
+      "original": "https://floreix.com/wp-content/uploads/2024/02/PHOTO-2021-10-03-19-44-33-1.jpg",
+      "bytes": 994352,
+      "width": 1536,
+      "height": 2048,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png": {
+      "file": "8fd1e50daf-ub-logo.png",
+      "original": "https://floreix.com/wp-content/uploads/2024/02/UB-LOGO.png",
+      "bytes": 152425,
+      "width": 984,
+      "height": 250,
+      "format": "PNG"
+    },
+    "https://floreix.com/wp-content/uploads/2024/02/uoc_masterbrand_2linies_posititiu.jpg": {
+      "file": "949c1fe0d7-uoc-masterbrand-2linies-posititiu.webp",
+      "original": "https://floreix.com/wp-content/uploads/2024/02/uoc_masterbrand_2linies_posititiu.jpg",
+      "bytes": 11840,
+      "width": 669,
+      "height": 173,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/02/Foto-grupo.webp": {
+      "file": "6af9cf919c-foto-grupo.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/02/Foto-grupo.webp",
+      "bytes": 983750,
+      "width": 1650,
+      "height": 2200,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/02/Terapia-amb-nens-2.webp": {
+      "file": "311367acf9-terapia-amb-nens-2.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/02/Terapia-amb-nens-2.webp",
+      "bytes": 289732,
+      "width": 1650,
+      "height": 2200,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/ChatGPT-Image-Mar-11-2026-12_54_39-PM.webp": {
+      "file": "878e253f27-chatgpt-image-mar-11-2026-12-54-39-pm.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/ChatGPT-Image-Mar-11-2026-12_54_39-PM.webp",
+      "bytes": 91858,
+      "width": 1024,
+      "height": 1536,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/Mariposa-pavon-en-flores-moradas.webp": {
+      "file": "2a70832799-mariposa-pavon-en-flores-moradas.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/Mariposa-pavon-en-flores-moradas.webp",
+      "bytes": 100724,
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/Mindfulness-inici.webp": {
+      "file": "23acbd5d93-mindfulness-inici.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/Mindfulness-inici.webp",
+      "bytes": 47056,
+      "width": 436,
+      "height": 797,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/Psicoterapia-inici.webp": {
+      "file": "24d0e2f496-psicoterapia-inici.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/Psicoterapia-inici.webp",
+      "bytes": 24078,
+      "width": 442,
+      "height": 797,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/Sesion-de-terapia-familiar-sonriente.webp": {
+      "file": "3d1b1a9313-sesion-de-terapia-familiar-sonriente.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/Sesion-de-terapia-familiar-sonriente.webp",
+      "bytes": 81666,
+      "width": 1024,
+      "height": 1536,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/Terapia-individual-ros.webp": {
+      "file": "f61335f8db-terapia-individual-ros.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/Terapia-individual-ros.webp",
+      "bytes": 85924,
+      "width": 1024,
+      "height": 1536,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/mindfulness.webp": {
+      "file": "84a37e5232-mindfulness.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/mindfulness.webp",
+      "bytes": 85306,
+      "width": 1024,
+      "height": 1536,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/2026/03/terapia-natura-inici.png": {
+      "file": "f7d046a052-terapia-natura-inici.webp",
+      "original": "https://floreix.com/wp-content/uploads/2026/03/terapia-natura-inici.png",
+      "bytes": 45798,
+      "width": 445,
+      "height": 797,
+      "format": "WEBP"
+    },
+    "https://floreix.com/wp-content/uploads/elementor/thumbs/Sobre-nosaltres-scaled-qetuqs6e1qpq37r7j5eivsxowzbq5b4oadxb759sz4.jpg": {
+      "file": "5a00546829-sobre-nosaltres-scaled-qetuqs6e1qpq37r7j5eivsxowzbq5b4o.webp",
+      "original": "https://floreix.com/wp-content/uploads/elementor/thumbs/Sobre-nosaltres-scaled-qetuqs6e1qpq37r7j5eivsxowzbq5b4oadxb759sz4.jpg",
+      "bytes": 82518,
+      "width": 450,
+      "height": 600,
+      "format": "WEBP"
+    }
+  }
+}
