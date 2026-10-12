@@ -173,7 +173,10 @@ def update_page(relative: str, pair: tuple[str,str]):
             if "floreix-map-link" in content:return content
             directions="https://www.google.com/maps/search/?api=1&query="+quote(locations[idx],safe="")
             return content + f'<p class="floreix-map-link"><a href="{html_lib.escape(directions,quote=True)}" target="_blank" rel="noopener noreferrer">{labels[language][idx]}</a></p>'
-        s=re.sub(r'<iframe\b[^>]*\bsrc=["\']https://maps\.google\.com/maps[^>]*>\s*</iframe>',wrap_map,s,flags=re.I|re.S)
+        if s.count('class="floreix-map-link"') == 0:
+            s=re.sub(r'<iframe\b[^>]*\bsrc=["\']https://maps\.google\.com/maps[^>]*>\s*</iframe>',wrap_map,s,flags=re.I|re.S)
+        elif s.count('class="floreix-map-link"') != 2:
+            raise ValueError("Unexpected number of map links in " + relative)
         if "floreix-map-link" in s and "floreix-map-fallback-styles" not in s:
             css='''<style id="floreix-map-fallback-styles">
 .elementor-widget-google_maps .elementor-custom-embed iframe{display:block;width:100%;min-height:300px;border:0;border-radius:16px}
