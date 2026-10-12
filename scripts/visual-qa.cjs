@@ -18,6 +18,7 @@ const pages = [
   ["/es/terapia-en-la-naturaleza/", "nature-es"],
   ["/privacy-policy/", "legal-ca"],
   ["/es/terminos-y-condiciones/", "legal-es"],
+  ["/es/elementor-1816/", "legacy-es-redirect"],
 ];
 const viewports = [
   {name:"desktop",width:1440,height:900},
@@ -60,6 +61,7 @@ const viewports = [
             return {width:Math.round(r.width),height:Math.round(r.height),src:iframe.src};
           });
           const mapLinks=document.querySelectorAll(".floreix-map-link a[href]").length;
+          const dummySocialVisible=[...document.querySelectorAll(".elementor-social-icon[href='#']")].filter(a=>a.getClientRects().length>0).length;
           const oldProjectLinks=[...document.querySelectorAll("a[href]")].filter(a=>a.getAttribute("href").includes("maite-terapia.github.io/floreix-new/")).length;
           const staleWpforms=[...document.querySelectorAll("script[src],link[href]")].filter(el=>/wpforms-lite|googlesitekit-events-provider-wpforms/.test(el.src||el.href)).length;
           const cardImages=[...document.querySelectorAll(".floreix-service-card .elementor-widget-image img")].map(img=>{
@@ -69,7 +71,7 @@ const viewports = [
           return {pageWidth:document.documentElement.scrollWidth,viewportWidth:window.innerWidth,
             hOverflow:Math.max(0,document.documentElement.scrollWidth-window.innerWidth),
             localImages:localImages.length,bad,badCount:bad.length,incomplete,cardImages,
-            allBroken,allBrokenCount:allBroken.length,maps,mapLinks,oldProjectLinks,staleWpforms};
+            allBroken,allBrokenCount:allBroken.length,maps,mapLinks,dummySocialVisible,oldProjectLinks,staleWpforms};
         });
         const fileName=label+"-"+vp.name+".png";
         await page.screenshot({path:path.join("visual-qa-report",fileName),fullPage:true,animations:"disabled"});
@@ -86,13 +88,13 @@ const viewports = [
     page:f.label,viewport:f.viewport,http:f.httpStatus,localImages:f.localImages,
     broken:f.badCount,brokenAll:f.allBrokenCount,horizontalOverflow:f.hOverflow,
     oldProjectLinks:f.oldProjectLinks,staleWpforms:f.staleWpforms,
-    maps:f.maps?.length||0,mapLinks:f.mapLinks||0,
+    maps:f.maps?.length||0,mapLinks:f.mapLinks||0,dummySocialVisible:f.dummySocialVisible||0,
     jsErrors:f.jsErrors?.length||0,failedResources:f.requestErrors?.length||0,error:f.error
   }))));
   const failures=findings.filter(f=>f.error||f.httpStatus!==200||(f.badCount||0)>0||(f.allBrokenCount||0)>0||
     (f.hOverflow||0)>12||(f.incomplete||[]).length>0||(f.oldProjectLinks||0)>0||(f.staleWpforms||0)>0||
     ((f.label==="contact"||f.label==="contact-es")&&
-       ((f.maps||[]).length!==2||f.mapLinks!==2)));
+       ((f.maps||[]).length!==2||f.mapLinks!==2||(f.dummySocialVisible||0)>0)));
   if(failures.length) {
     console.error("VISUAL_QA_FAILURES "+JSON.stringify(failures.map(f=>({
       page:f.label,viewport:f.viewport,broken:f.bad,overflow:f.hOverflow,error:f.error,incomplete:f.incomplete
