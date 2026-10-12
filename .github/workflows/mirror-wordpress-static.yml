@@ -1,0 +1,41 @@
+name: Preserve WordPress visual assets
+
+on:
+  push:
+    paths:
+      - '.github/workflows/mirror-wordpress-static.yml'
+      - 'scripts/mirror-wordpress-static.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: preserve-wordpress-static
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Mirror CSS JS and dependent font files
+        run: |
+          python -m py_compile scripts/mirror-wordpress-static.py
+          python scripts/mirror-wordpress-static.py
+      - name: Commit self-hosted assets
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add wp-content wp-includes assets/wordpress-static-manifest.json
+          if git diff --cached --quiet; then
+            echo "No changes to visual assets."
+          else
+            git commit -m "feat(static): mirror WordPress theme styles scripts and fonts"
+            git pull --rebase origin main
+            git push origin main
+          fi
