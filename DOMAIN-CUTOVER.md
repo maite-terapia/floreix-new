@@ -4,7 +4,7 @@ The repository is prepared for **floreix.com** but the DNS is **not yet changed*
 
 ## Before changing DNS
 - Backup Hostalia DNS, the WordPress database and the entire WordPress uploads directory.
-- Check that GitHub Actions `deploy-pages` is green and both language sites work in GitHub Pages preview.
+- Check that GitHub Actions **pages build and deployment** (the native GitHub Pages workflow) is green and both language sites work in GitHub Pages preview.
 - Check Web3Forms account: website URL `https://floreix.com/contact/`, destination `maite@floreix.com`. Form email delivery remains unverified until a live test.
 - Review privacy/cookie treatment of third-party Google Maps and Web3Forms, particularly for a psychology practice.
 - Confirm Hostalia permits keeping email after canceling WordPress hosting. **Do not cancel yet**.
