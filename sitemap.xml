@@ -1,10 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/sitemap/0.9">
-  <url><loc>https://maite-terapia.github.io/floreix-new/</loc></url>
-  <url><loc>https://maite-terapia.github.io/floreix-new/psicoterapia/</loc></url>
-  <url><loc>https://maite-terapia.github.io/floreix-new/terapia-a-la-natura/</loc></url>
-  <url><loc>https://maite-terapia.github.io/floreix-new/about/</loc></url>
-  <url><loc>https://maite-terapia.github.io/floreix-new/metodologia/</loc></url>
-  <url><loc>https://maite-terapia.github.io/floreix-new/contact/</loc></url>
-  <url><loc>https://maite-terapia.github.io/floreix-new/es/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://floreix.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/about/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/sobre-nosotros/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/sobre-nosotros/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/sobre-nosotros/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/psicoterapia/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/psicoterapia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/psicoterapia/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/psicoterapia/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/psicoterapia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/psicoterapia/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/terapia-a-la-natura/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/terapia-a-la-natura/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/terapia-en-la-naturaleza/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/terapia-en-la-naturaleza/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/terapia-a-la-natura/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/terapia-en-la-naturaleza/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/metodologia/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/metodologia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/metodologia/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/metodologia/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/metodologia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/metodologia/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/contacto/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/contacto/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/contacto/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/privacy-policy/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/terminos-y-condiciones/"/>
+  </url>
+  <url>
+    <loc>https://floreix.com/es/terminos-y-condiciones/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://floreix.com/privacy-policy/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://floreix.com/es/terminos-y-condiciones/"/>
+  </url>
 </urlset>

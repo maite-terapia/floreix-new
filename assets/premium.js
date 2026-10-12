@@ -2,8 +2,10 @@
   const body = document.body;
   body.classList.add('premium-site');
 
-  const BASE = 'https://maite-terapia.github.io/floreix-new/';
-  const ASSET_BASE = ['127.0.0.1','localhost'].includes(location.hostname) ? '/' : BASE;
+  // The project preview is served under /floreix-new/. At floreix.com the
+  // same files live at the root. Never fetch images from the retired hostname.
+  const BASE = location.hostname === 'maite-terapia.github.io' ? '/floreix-new/' : '/';
+  const ASSET_BASE = BASE;
   const ORIGINAL_LOGO = ASSET_BASE + 'assets/logo-floreix-nou-v2.png';
   const MAITE_HOME = ASSET_BASE + 'assets/maite-sobre-nosotros.webp';
   const COPC = ASSET_BASE + 'assets/media/6183bb14d3-captura-de-pantalla-2024-02-17-a-las-17-43-10.png';
