@@ -2431,3 +2431,48 @@ body .elementor-11 section.elementor-element[data-id="ca7541c"] .elementor-eleme
     letter-spacing:-.035em!important;
   }
 }
+
+/* V13 — center full pink contact panel, heading and CTA as one group. */
+body .elementor-11 section.elementor-element[data-id="b991a90"]>.elementor-container{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:100%!important;
+}
+body .elementor-11 section.elementor-element[data-id="b991a90"]>.elementor-container>.elementor-column{
+  flex:0 1 100%!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0 auto!important;
+}
+body .elementor-11 section.elementor-element[data-id="b991a90"] .elementor-widget-wrap{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  text-align:center!important;
+}
+body .elementor-11 section.elementor-element[data-id="b991a90"] .elementor-element[data-id="7d508b6"],
+body .elementor-11 section.elementor-element[data-id="b991a90"] .elementor-element[data-id="5174a75"]{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+body .elementor-11 section.elementor-element[data-id="b991a90"] .elementor-element[data-id="7d508b6"] h2{
+  display:block!important;
+  width:100%!important;
+  max-width:950px!important;
+  margin:0 auto 16px!important;
+  text-align:center!important;
+  text-wrap:balance;
+}
+body .elementor-11 section.elementor-element[data-id="b991a90"] .elementor-element[data-id="5174a75"] .elementor-button-wrapper{
+  display:flex!important;
+  justify-content:center!important;
+  width:100%!important;
+}
