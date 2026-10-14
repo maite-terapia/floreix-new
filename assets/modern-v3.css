@@ -2292,3 +2292,55 @@ body.premium-site.floreix-method .elementor-element[data-id="5d48aac"] p{color:v
   body.premium-site.floreix-nature .elementor-element[data-id="a16a3ad"],
   body.premium-site.floreix-method .elementor-element[data-id="5d48aac"]{width:calc(100% - 32px)!important;padding:28px 22px!important}
 }
+
+/* V11 — alignment and responsive typography audit, 2026-10-14.
+   Scoped to the existing Elementor widgets; no layout or brand redesign. */
+body.premium-site.floreix-home .elementor-element[data-id="7d508b6"],
+body.premium-site.floreix-home .elementor-element[data-id="7d508b6"] .elementor-widget-container{
+  width:100%!important;
+  max-width:100%!important;
+  text-align:center!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="7d508b6"] h2{
+  width:100%!important;
+  max-width:min(100%,850px)!important;
+  margin:0 auto 12px!important;
+  text-align:center!important;
+  text-wrap:balance;
+  overflow-wrap:break-word;
+}
+body.premium-site.floreix-home .elementor-element[data-id="b991a90"] > .elementor-container,
+body.premium-site.floreix-home .elementor-element[data-id="b991a90"] .elementor-widget-wrap{
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="b991a90"] .elementor-widget-button,
+body.premium-site.floreix-home .elementor-element[data-id="b991a90"] .elementor-button-wrapper{
+  text-align:center!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="0708f7f"]{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+body.premium-site.floreix-home .elementor-element[data-id="0708f7f"] .elementor-heading-title{
+  max-width:min(100%,1060px)!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+  text-wrap:balance;
+}
+@media(max-width:767px){
+  body.premium-site.floreix-home .elementor-element[data-id="7d508b6"] h2{
+    font-size:clamp(25px,6.5vw,34px)!important;
+    line-height:1.14!important;
+    letter-spacing:-.035em!important;
+  }
+  body.premium-site.floreix-home .elementor-element[data-id="0708f7f"] .elementor-heading-title{
+    font-size:clamp(36px,9vw,68px)!important;
+    line-height:1.08!important;
+    letter-spacing:-.035em!important;
+  }
+}
